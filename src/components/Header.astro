@@ -1,0 +1,229 @@
+---
+import Icon from './Icon.astro';
+import { nav, site } from '../data/site';
+import { url } from '../lib/url';
+---
+<header class="header">
+  <div class="bar">
+    <a class="brand" href={url('/')} aria-label={`${site.name}, home`}>
+      <span class="mark" aria-hidden="true">A</span>
+      <span class="brand-name">{site.name}</span>
+    </a>
+
+    <nav class="links" aria-label="Primary">
+      {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
+    </nav>
+
+    <div class="actions">
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>
+        <Icon name="sun" class="sun" />
+        <Icon name="moon" class="moon" />
+      </button>
+      <a class="btn cta" href={site.calendly} target="_blank" rel="noopener">Book a call</a>
+
+      <details class="menu">
+        <summary aria-label="Open menu"><span></span><span></span></summary>
+        <div class="menu-panel">
+          {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
+          <a href={site.calendly} target="_blank" rel="noopener">Book a call ↗</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  btn?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+  });
+  // Close the mobile menu after choosing a link.
+  document.querySelectorAll('.menu-panel a').forEach((a) =>
+    a.addEventListener('click', () => a.closest('details')?.removeAttribute('open')),
+  );
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 0.9rem var(--gutter) 0;
+    view-transition-name: site-header;
+  }
+
+  .bar {
+    max-width: var(--max);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.9rem;
+    border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--bg) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--on-ink);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .links a {
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .links a:hover {
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .cta {
+    padding: 0.7rem 1.1rem;
+  }
+
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .theme-toggle:hover {
+    background: var(--surface-2);
+  }
+
+  .theme-toggle :global(svg) {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  :global([data-theme='dark']) .theme-toggle :global(.sun),
+  :global([data-theme='light']) .theme-toggle :global(.moon) {
+    display: none;
+  }
+
+  .menu {
+    display: none;
+    position: relative;
+  }
+
+  .menu summary {
+    list-style: none;
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: var(--ink);
+    cursor: pointer;
+  }
+
+  .menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu summary span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--on-ink);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .menu[open] summary span:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+
+  .menu[open] summary span:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  .menu-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.75rem);
+    display: grid;
+    min-width: 13rem;
+    padding: 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  .menu-panel a {
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .menu-panel a:hover {
+    background: var(--surface-2);
+  }
+
+  @media (max-width: 860px) {
+    .links,
+    .cta {
+      display: none;
+    }
+
+    .menu {
+      display: block;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .brand-name {
+      display: none;
+    }
+  }
+</style>

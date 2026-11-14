@@ -1,0 +1,245 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import Icon from '../../components/Icon.astro';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  next: CollectionEntry<'projects'>;
+}
+
+const { project, next } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+const facts = [
+  { label: 'Role', value: d.role },
+  { label: 'Industry', value: d.industry },
+  { label: 'Tools', value: d.tools },
+  { label: 'Year', value: d.year },
+].filter((f) => f.value);
+---
+<BaseLayout title={d.title} description={d.subtitle} image={d.hero.src}>
+  <article>
+    <header class="intro container">
+      <a class="back link-arrow" href={url('/#work')}><Icon name="arrow-left" /> All work</a>
+      <h1 data-reveal>{d.title}</h1>
+      <p class="subtitle muted" data-reveal style="--delay:.06s">{d.subtitle}</p>
+
+      <dl class="facts" data-reveal style="--delay:.12s">
+        {facts.map((f) => (
+          <div>
+            <dt>{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      {d.liveUrl && (
+        <a class="btn live" href={d.liveUrl} target="_blank" rel="noopener" data-reveal style="--delay:.16s">
+          Visit live site <Icon name="arrow-up-right" />
+        </a>
+      )}
+    </header>
+
+    <div class="hero-img container">
+      <Image
+        src={d.hero}
+        alt={d.heroAlt}
+        widths={[640, 1000, 1400, 2000, 2400]}
+        sizes="(min-width: 1280px) 1200px, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        style={`view-transition-name: hero-${project.id}`}
+      />
+    </div>
+
+    <div class="prose container">
+      <Content />
+    </div>
+  </article>
+
+  {next.id !== project.id && (
+    <nav class="next container" aria-label="Next project">
+      <a href={url(`/projects/${next.id}`)}>
+        <span class="eyebrow">Next project</span>
+        <span class="next-title">{next.data.title} <Icon name="arrow-right" /></span>
+        <span class="muted">{next.data.subtitle}</span>
+      </a>
+    </nav>
+  )}
+
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-top: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
+  }
+
+  .back {
+    margin-bottom: 2.5rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .back:hover {
+    color: var(--ink);
+  }
+
+  .back:hover :global(svg) {
+    transform: translateX(-3px);
+  }
+
+  h1 {
+    font-size: var(--step-4);
+    max-width: 18ch;
+    letter-spacing: -0.035em;
+  }
+
+  .subtitle {
+    max-width: 52ch;
+    margin-top: 1.5rem;
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  dt {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .live {
+    margin-top: 2.25rem;
+  }
+
+  .hero-img :global(img) {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+  }
+
+  /* Long-form content ------------------------------------------- */
+  .prose {
+    max-width: calc(44rem + var(--gutter) * 2);
+    padding-block: clamp(3rem, 2rem + 4vw, 6rem) 0;
+    font-size: var(--step-0);
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+
+  .prose :global(h2) {
+    font-size: var(--step-3);
+    color: var(--ink);
+    margin: 4.5rem 0 1.25rem;
+  }
+
+  .prose :global(h3) {
+    font-size: var(--step-1);
+    color: var(--ink);
+    margin: 3rem 0 0.75rem;
+    line-height: 1.3;
+  }
+
+  .prose > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  .prose :global(p),
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 1.25rem;
+  }
+
+  .prose :global(strong) {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  .prose :global(ul) {
+    padding-left: 1.2rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+    padding-left: 0.3rem;
+  }
+
+  .prose :global(li::marker) {
+    color: var(--accent);
+  }
+
+  .prose :global(p > img) {
+    width: min(var(--max), 100vw - var(--gutter) * 2);
+    max-width: none;
+    margin: clamp(2rem, 1.5rem + 2vw, 3.5rem) 0;
+    margin-inline: 50%;
+    transform: translateX(-50%);
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+
+  /* Next project ------------------------------------------------ */
+  .next {
+    padding-top: var(--section);
+  }
+
+  .next a {
+    display: grid;
+    gap: 0.5rem;
+    padding: clamp(2rem, 1.5rem + 3vw, 4rem) 0;
+    border-block: 1px solid var(--line);
+    text-decoration: none;
+  }
+
+  .next-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .next-title :global(svg) {
+    flex: none;
+    width: 0.8em;
+    height: 0.8em;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .next a:hover .next-title :global(svg) {
+    transform: translateX(8px);
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { url } from '../lib/url';
+---
+<BaseLayout title="Page not found">
+  <section class="section container wrap">
+    <p class="eyebrow">404</p>
+    <h1>This page wandered <em class="serif-italic">off.</em></h1>
+    <p class="muted">The link may be broken, or the page may have moved.</p>
+    <a class="btn" href={url('/')}><Icon name="arrow-left" /> Back home</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .wrap {
+    min-height: 60vh;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 1.5rem;
+  }
+
+  h1 {
+    font-size: var(--step-4);
+  }
+</style>

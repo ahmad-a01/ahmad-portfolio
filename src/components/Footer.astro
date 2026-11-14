@@ -1,0 +1,120 @@
+---
+import Icon from './Icon.astro';
+import { nav, site, socials } from '../data/site';
+import { url } from '../lib/url';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container inner">
+    <div class="top">
+      <div>
+        <a class="name" href={url('/')}>{site.name}</a>
+        <p class="muted">{site.role} based in {site.location}.</p>
+      </div>
+      <nav aria-label="Footer">
+        {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
+        <a href={site.resume} target="_blank" rel="noopener">Resume</a>
+      </nav>
+      <ul class="socials" aria-label="Social links">
+        {socials.map((s) => (
+          <li>
+            <a href={s.href} aria-label={s.label} target={s.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+              <Icon name={s.icon} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="bottom muted">
+      <span>© {year} {site.name}</span>
+      <a href={url('/licensing')}>Credits &amp; licensing</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    padding-block: 3.5rem 2rem;
+    font-size: 0.95rem;
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: 1.4fr 2fr auto;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    text-decoration: none;
+  }
+
+  .top p {
+    margin-top: 0.4rem;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+
+  nav a,
+  .bottom a {
+    text-decoration: none;
+  }
+
+  nav a:hover,
+  .bottom a:hover {
+    text-decoration: underline;
+  }
+
+  .socials {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .socials a:hover {
+    background: var(--ink);
+    color: var(--on-ink);
+    border-color: var(--ink);
+  }
+
+  .socials :global(svg) {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 760px) {
+    .top {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
