@@ -1,0 +1,87 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+<section class="contact container" id="contact" aria-labelledby="contact-title">
+  <div class="card" data-reveal>
+    <p class="eyebrow">Contact</p>
+    <h2 id="contact-title">Interested in <em class="serif-italic">connecting?</em></h2>
+    <p class="lede">Let’s talk projects, collaborations, or anything design. I’m always happy to chat.</p>
+    <div class="row">
+      <a class="btn" href={site.calendly} target="_blank" rel="noopener">
+        <Icon name="calendar" /> Book a call
+      </a>
+      <a class="btn btn-ghost" href={`mailto:${site.email}`}>
+        <Icon name="mail" /> {site.email}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-block: var(--section) calc(var(--section) * 0.6);
+  }
+
+  .card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2.5rem, 1.5rem + 5vw, 6rem) clamp(1.5rem, 1rem + 4vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: var(--on-ink);
+    isolation: isolate;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: auto -20% -60% auto;
+    width: 70%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in oklab, var(--accent) 55%, transparent), transparent 65%);
+    filter: blur(20px);
+    z-index: -1;
+  }
+
+  .eyebrow {
+    color: color-mix(in oklab, var(--on-ink) 60%, transparent);
+  }
+
+  h2 {
+    font-size: var(--step-4);
+    max-width: 14ch;
+  }
+
+  .lede {
+    margin-top: 1.25rem;
+    max-width: 40ch;
+    font-size: var(--step-1);
+    color: color-mix(in oklab, var(--on-ink) 75%, transparent);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .btn {
+    --btn-bg: var(--on-ink);
+    --btn-fg: var(--ink);
+    max-width: 100%;
+  }
+
+  .btn-ghost {
+    --btn-bg: transparent;
+    --btn-fg: var(--on-ink);
+    border-color: color-mix(in oklab, var(--on-ink) 25%, transparent);
+    overflow-wrap: anywhere;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--on-ink);
+  }
+</style>

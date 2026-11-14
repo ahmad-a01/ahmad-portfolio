@@ -1,0 +1,693 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import Icon from '../components/Icon.astro';
+import { about, capabilities, certificates, experience, site, socials } from '../data/site';
+import { url } from '../lib/url';
+
+import avatar from '../assets/images/avatar.png';
+import portrait from '../assets/images/portrait.png';
+import landscape from '../assets/images/landscape.jpg';
+import ixdf from '../assets/certificates/ixdf.jpg';
+import figma from '../assets/certificates/figma.jpg';
+import wordpress from '../assets/certificates/wordpress.jpg';
+
+const certImages = { ixdf, figma, wordpress };
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const [featured, ...rest] = projects;
+---
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero container" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="status" data-reveal>
+        <span class="dot" aria-hidden="true"></span>
+        {site.current.role} at {site.current.company}
+      </p>
+      <h1 id="hero-title" data-reveal style="--delay:.05s">
+        <span class="hi">Hi, I’m Ahmad.</span>
+        A product designer solving the <em class="serif-italic">right</em> problems with human‑centered design.
+      </h1>
+      <p class="lede muted" data-reveal style="--delay:.1s">
+        Based in {site.location.split(',')[0]}. I design and build clear, purposeful web and product experiences,
+        from first research session to shipped code.
+      </p>
+      <div class="hero-actions" data-reveal style="--delay:.15s">
+        <a class="btn" href={url('/#work')}>See my work <Icon name="arrow-right" /></a>
+        <a class="btn btn-ghost" href={url('/#about')}>About me</a>
+        <ul class="hero-socials" aria-label="Social links">
+          {socials.map((s) => (
+            <li>
+              <a href={s.href} aria-label={s.label} target={s.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+                <Icon name={s.icon} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="hero-visual" data-reveal style="--delay:.1s">
+      <div class="arch">
+        <Image src={avatar} alt="Portrait of Ahmad Abdullahi" widths={[320, 520, 760]} sizes="(min-width: 900px) 380px, 70vw" loading="eager" fetchpriority="high" />
+      </div>
+      <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="circle" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0" /></defs>
+        <text><textPath href="#circle">PRODUCT DESIGNER • INDIANA • UX/UI • </textPath></text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Capabilities marquee -->
+  <div class="marquee" aria-label="Capabilities">
+    <div class="track">
+      {[0, 1].map((dup) => (
+        <ul aria-hidden={dup === 1 ? 'true' : undefined}>
+          {capabilities.map((c) => <li>{c}</li>)}
+        </ul>
+      ))}
+    </div>
+  </div>
+
+  <!-- Work -->
+  <section class="section container" id="work" aria-labelledby="work-title">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2 id="work-title">Projects I’m proud of</h2>
+      </div>
+      <p class="muted head-note">A look at some of the best design projects I’ve worked on, from research to launch.</p>
+    </div>
+
+    <div class="work">
+      {featured && <ProjectCard project={featured} featured index={0} />}
+      <div class="work-grid">
+        {rest.map((p, i) => <ProjectCard project={p} index={i + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section about-section" id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">About me</p>
+          <h2 id="about-title">Designer, builder, <em class="serif-italic">creative</em> at heart.</h2>
+        </div>
+      </div>
+
+      <div class="bento">
+        <article class="tile tile-bio" data-reveal>
+          <h3>Rooted in Bloomington</h3>
+          <p>{about.intro}</p>
+        </article>
+
+        <figure class="tile tile-portrait" data-reveal style="--delay:.06s">
+          <Image src={portrait} alt="Ahmad smiling outdoors in a maroon polo" widths={[400, 700, 1000]} sizes="(min-width: 900px) 400px, 100vw" />
+        </figure>
+
+        <article class="tile tile-now" data-reveal style="--delay:.12s">
+          <p class="tile-label">Now</p>
+          <p class="now-role">{site.current.role}</p>
+          <p class="muted">{site.current.company}<br />Since {site.current.since}</p>
+        </article>
+
+        <article class="tile tile-edu" data-reveal>
+          <p class="tile-label">Education</p>
+          <p class="edu-degree">{about.education.degree}</p>
+          <p class="muted">{about.education.school} · {about.education.year}</p>
+          <p class="muted small">{about.education.detail}</p>
+        </article>
+
+        <article class="tile tile-roots" data-reveal style="--delay:.06s">
+          <h3>Where the creativity started</h3>
+          <p>{about.roots}</p>
+        </article>
+
+        <figure class="tile tile-photo" data-reveal style="--delay:.12s">
+          <Image src={landscape} alt="Mountain landscape overlooking a lake, photographed by Ahmad" widths={[500, 900, 1300]} sizes="(min-width: 900px) 500px, 100vw" />
+          <figcaption>Shot on my Canon</figcaption>
+        </figure>
+
+        <article class="tile tile-offline" data-reveal>
+          <p class="tile-label">When I’m offline</p>
+          <ul>
+            {about.offline.map((o) => <li class="chip">{o}</li>)}
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section container" id="experience" aria-labelledby="exp-title">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Experience</p>
+        <h2 id="exp-title">Where I’ve worked</h2>
+      </div>
+      <a class="btn btn-ghost" href={site.resume} target="_blank" rel="noopener"><Icon name="file" /> View resume</a>
+    </div>
+
+    <ol class="timeline">
+      {experience.map((job, i) => (
+        <li data-reveal style={`--delay:${i * 0.05}s`}>
+          <span class="role">
+            {job.role}
+            {job.current && <span class="current">Current</span>}
+          </span>
+          <span class="company muted">{job.company}</span>
+          <span class="dates muted">{job.dates}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- Certificates -->
+  <section class="section certs-section" aria-labelledby="cert-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Always learning</p>
+          <h2 id="cert-title">Certificates</h2>
+        </div>
+      </div>
+      <ul class="certs">
+        {certificates.map((c, i) => (
+          <li data-reveal style={`--delay:${i * 0.08}s`}>
+            <a class="cert" href={c.href} target="_blank" rel="noopener">
+              <div class="cert-img">
+                <Image src={certImages[c.image]} alt={`${c.title} certificate`} widths={[400, 700]} sizes="(min-width: 900px) 380px, 100vw" />
+              </div>
+              <div class="cert-body">
+                <p class="muted small">{c.issuer}</p>
+                <h3>{c.title}</h3>
+                <span class="link-arrow">View certificate <Icon name="arrow-up-right" /></span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  /* Hero ----------------------------------------------------------- */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 1rem + 5vw, 6rem);
+    padding-block: clamp(3.5rem, 2rem + 6vw, 8rem) clamp(3rem, 2rem + 4vw, 6rem);
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.9rem 0.45rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: var(--step--1);
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+  }
+
+  .dot {
+    position: relative;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: #3fa34d;
+  }
+
+  .dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: inherit;
+    animation: ping 2.2s var(--ease) infinite;
+  }
+
+  @keyframes ping {
+    from { transform: scale(1); opacity: 0.6; }
+    to { transform: scale(2.8); opacity: 0; }
+  }
+
+  h1 {
+    font-size: var(--step-4);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  .hi {
+    display: block;
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  h1 em {
+    color: var(--accent);
+  }
+
+  .lede {
+    max-width: 46ch;
+    margin-top: 1.75rem;
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero-socials {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0 0 0 0.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-socials a {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    color: var(--ink-soft);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .hero-socials a:hover {
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+
+  .hero-socials :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .hero-visual {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 400px);
+  }
+
+  .arch {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+  }
+
+  .arch :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  .badge {
+    position: absolute;
+    left: -2.5rem;
+    bottom: 2rem;
+    width: 8.5rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: var(--ink);
+    fill: var(--on-ink);
+    font: 600 9.5px/1 var(--font-body);
+    letter-spacing: 0.18em;
+    animation: spin 22s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Marquee -------------------------------------------------------- */
+  .marquee {
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+    padding-block: 1.1rem;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    animation: scroll 38s linear infinite;
+  }
+
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+
+  .track ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .track li {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    padding-right: 2.5rem;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-style: italic;
+    white-space: nowrap;
+    color: var(--ink-soft);
+  }
+
+  .track li::after {
+    content: '✦';
+    font-style: normal;
+    font-size: 0.6em;
+    color: var(--accent);
+  }
+
+  @keyframes scroll {
+    to { transform: translateX(-50%); }
+  }
+
+  /* Work ----------------------------------------------------------- */
+  .head-note {
+    max-width: 34ch;
+  }
+
+  .work {
+    display: grid;
+    gap: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.5rem, 1.5rem + 3vw, 4rem) clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+  }
+
+  /* About bento ---------------------------------------------------- */
+  .about-section {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(9rem, auto);
+    gap: clamp(0.75rem, 0.5rem + 0.8vw, 1.25rem);
+  }
+
+  .tile {
+    margin: 0;
+    padding: clamp(1.4rem, 1rem + 1.2vw, 2.2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .tile h3 {
+    font-size: var(--step-2);
+    margin-bottom: 1rem;
+  }
+
+  .tile p + p {
+    margin-top: 0.4rem;
+  }
+
+  .tile-label {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+  }
+
+  .small {
+    font-size: var(--step--1);
+  }
+
+  .tile-bio { grid-column: span 3; grid-row: span 2; display: flex; flex-direction: column; justify-content: end; }
+  .tile-portrait { grid-column: span 3; grid-row: span 2; padding: 0; }
+  .tile-now { grid-column: span 2; background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+  .tile-edu { grid-column: span 4; }
+  .tile-roots { grid-column: span 4; grid-row: span 2; }
+  .tile-photo { grid-column: span 2; grid-row: span 2; padding: 0; position: relative; }
+  .tile-offline { grid-column: span 6; }
+
+  .tile-now .tile-label,
+  .tile-now .muted {
+    color: color-mix(in oklab, var(--on-ink) 65%, transparent);
+  }
+
+  .now-role,
+  .edu-degree {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .tile-portrait :global(img),
+  .tile-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tile-portrait :global(img) {
+    object-position: 50% 35%;
+    min-height: 20rem;
+  }
+
+  .tile-photo :global(img) {
+    min-height: 16rem;
+  }
+
+  .tile-photo figcaption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.45);
+    color: #fff;
+    font-size: var(--step--1);
+    backdrop-filter: blur(8px);
+  }
+
+  .tile-offline ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Experience ----------------------------------------------------- */
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: 1.1fr 1.2fr auto;
+    gap: 0.25rem 2rem;
+    align-items: baseline;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: padding 0.4s var(--ease), background-color 0.3s;
+  }
+
+  .timeline li:hover {
+    padding-inline: 1rem;
+    background: var(--surface);
+  }
+
+  .role {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+  }
+
+  .current {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font: 600 0.75rem/1.4 var(--font-body);
+  }
+
+  .dates {
+    font-variant-numeric: tabular-nums;
+    font-size: var(--step--1);
+    text-align: right;
+  }
+
+  /* Certificates --------------------------------------------------- */
+  .certs-section {
+    padding-top: 0;
+  }
+
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .certs li {
+    display: flex;
+  }
+
+  .cert {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    text-decoration: none;
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  }
+
+  .cert:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+
+  .cert-img {
+    aspect-ratio: 4 / 3;
+    padding: 1.25rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cert-img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  .cert-body {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1.4rem;
+    flex: 1;
+    align-content: start;
+  }
+
+  .cert-body h3 {
+    font-size: var(--step-1);
+    line-height: 1.25;
+  }
+
+  .cert-body .link-arrow {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* Responsive ----------------------------------------------------- */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+      order: -1;
+      justify-self: start;
+      width: min(62%, 280px);
+    }
+
+    .badge {
+      left: auto;
+      right: -3rem;
+      bottom: 1rem;
+      width: 6.5rem;
+    }
+
+    .work-grid,
+    .certs {
+      grid-template-columns: 1fr;
+    }
+
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tile-bio,
+    .tile-portrait,
+    .tile-roots,
+    .tile-edu,
+    .tile-offline {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+
+    .tile-now,
+    .tile-photo {
+      grid-column: span 1;
+      grid-row: auto;
+    }
+
+    .timeline li {
+      grid-template-columns: 1fr;
+    }
+
+    .dates {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .tile-now,
+    .tile-photo {
+      grid-column: 1 / -1;
+    }
+
+    .hero-socials {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>

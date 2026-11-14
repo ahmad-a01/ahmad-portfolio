@@ -1,0 +1,30 @@
+---
+interface Props {
+  name: 'arrow-right' | 'arrow-up-right' | 'arrow-left' | 'linkedin' | 'dribbble' | 'github' | 'mail' | 'calendar' | 'sun' | 'moon' | 'file';
+  class?: string;
+  size?: number;
+}
+const { name, class: className, size } = Astro.props;
+const stroke = { fill: 'none', stroke: 'currentColor', 'stroke-width': 1.75, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' } as const;
+---
+<svg
+  class:list={[className, name.startsWith('arrow') && 'arrow']}
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  aria-hidden="true"
+  focusable="false"
+  {...(['linkedin', 'dribbble', 'github'].includes(name) ? { fill: 'currentColor' } : stroke)}
+>
+  {name === 'arrow-right' && <path d="M5 12h14M13 6l6 6-6 6" />}
+  {name === 'arrow-left' && <path d="M19 12H5M11 6l-6 6 6 6" />}
+  {name === 'arrow-up-right' && <path d="M7 17 17 7M8 7h9v9" />}
+  {name === 'mail' && <><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m4 7 8 6 8-6" /></>}
+  {name === 'calendar' && <><rect x="3.5" y="5" width="17" height="15.5" rx="3" /><path d="M8 3v4M16 3v4M3.5 10h17" /></>}
+  {name === 'file' && <><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></>}
+  {name === 'sun' && <><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></>}
+  {name === 'moon' && <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />}
+  {name === 'linkedin' && <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.15-.02-2.64-1.6-2.64-1.62 0-1.86 1.26-1.86 2.56v4.92h-4v-11Z" />}
+  {name === 'dribbble' && <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.6 4.6a8.5 8.5 0 0 1 1.9 5.2c-2.8-.6-5.3-.5-7.4.1l-.6-1.4c2.4-1 4.6-2.3 6.1-3.9ZM12 3.5c2.1 0 4 .8 5.5 2-1.4 1.5-3.4 2.6-5.6 3.5A49 49 0 0 0 8.4 4.3c1.1-.5 2.3-.8 3.6-.8ZM6.9 5.1a47 47 0 0 1 3.5 4.6c-2.6.8-5.4 1.2-6.7 1.2a8.5 8.5 0 0 1 3.2-5.8ZM3.5 12.4c1.6 0 4.8-.4 7.7-1.4l.6 1.3c-3.3 1.1-5.9 3.3-7.4 5.6a8.5 8.5 0 0 1-.9-5.5Zm2 6.6c1.4-2.3 3.8-4.4 6.9-5.4.9 2.4 1.5 5 1.8 7.4A8.5 8.5 0 0 1 5.5 19Zm10.2 1.4c-.3-2.3-.9-4.7-1.7-7 1.9-.4 4.1-.4 6.4.1a8.5 8.5 0 0 1-4.7 6.9Z" />}
+  {name === 'github' && <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />}
+</svg>

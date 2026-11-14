@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const credits = [
+  {
+    title: 'Fraunces',
+    body: 'Display typeface by Undercase Type, licensed under the SIL Open Font License 1.1. Self-hosted via Fontsource.',
+    href: 'https://fonts.google.com/specimen/Fraunces',
+  },
+  {
+    title: 'Manrope',
+    body: 'Body typeface by Mikhail Sharanda, licensed under the SIL Open Font License 1.1. Self-hosted via Fontsource.',
+    href: 'https://fonts.google.com/specimen/Manrope',
+  },
+  {
+    title: 'Photography',
+    body: `Portraits and landscape photography on this site are of or by ${site.name}. Please don’t reuse them without permission.`,
+  },
+  {
+    title: 'Project imagery',
+    body: 'Screenshots in case studies show work I designed for the clients and organizations named. Their names, logos, and photography remain the property of their respective owners.',
+  },
+  {
+    title: 'Built with',
+    body: 'Astro, deployed on GitHub Pages. Icons are custom inline SVGs.',
+    href: 'https://astro.build',
+  },
+];
+---
+<BaseLayout title="Credits & licensing" description="Fonts, images, and tools used on this site.">
+  <section class="section container narrow">
+    <p class="eyebrow">Credits</p>
+    <h1>Credits &amp; licensing</h1>
+    <dl>
+      {credits.map((c) => (
+        <div>
+          <dt>{c.title}</dt>
+          <dd>
+            {c.body}
+            {c.href && <> <a href={c.href} target="_blank" rel="noopener">Learn more ↗</a></>}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+</BaseLayout>
+
+<style>
+  .narrow {
+    max-width: calc(48rem + var(--gutter) * 2);
+    padding-top: clamp(3rem, 2rem + 4vw, 6rem);
+  }
+
+  h1 {
+    font-size: var(--step-4);
+    margin-bottom: 3rem;
+  }
+
+  dl {
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  dl > div {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 0.5rem 2rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  dt {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    dl > div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
