@@ -9,7 +9,7 @@ import { about, capabilities, certificates, experience, site, socials } from '..
 import { url } from '../lib/url';
 
 import avatar from '../assets/images/avatar.png';
-import portrait from '../assets/images/portrait.png';
+import portrait from '../assets/images/portrait.jpg';
 import landscape from '../assets/images/landscape.jpg';
 import ixdf from '../assets/certificates/ixdf.jpg';
 
@@ -108,7 +108,7 @@ const [featured, ...rest] = projects;
         </article>
 
         <figure class="tile tile-portrait" data-reveal style="--delay:.06s">
-          <Image src={portrait} alt="Ahmad smiling outdoors in a maroon polo" widths={[400, 700, 1000]} sizes="(min-width: 900px) 400px, 100vw" />
+          <Image src={portrait} alt="Ahmad in a maroon sweater at an overlook above a lake, city and low clouds" widths={[500, 800, 1200, 1600]} sizes="(min-width: 900px) 600px, 100vw" />
         </figure>
 
         <article class="tile tile-now" data-reveal style="--delay:.12s">
@@ -459,7 +459,7 @@ const [featured, ...rest] = projects;
     font-size: var(--step--1);
   }
 
-  .tile-bio { grid-column: span 3; }
+  .tile-bio { grid-column: span 3; display: flex; flex-direction: column; justify-content: center; }
   .tile-portrait { grid-column: span 3; padding: 0; position: relative; min-height: 18rem; }
   .tile-now { grid-column: span 2; background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
   .tile-edu { grid-column: span 4; }
@@ -482,7 +482,6 @@ const [featured, ...rest] = projects;
 
   /* Photos fill their tile without setting its height, so the text
      tiles beside them decide how tall each row is. */
-  .tile-portrait :global(img),
   .tile-photo :global(img) {
     position: absolute;
     inset: 0;
@@ -491,8 +490,15 @@ const [featured, ...rest] = projects;
     object-fit: cover;
   }
 
+  /* Portrait fills its card; the focal point keeps Ahmad (on the
+     right of the photo) in view at every card shape. */
   .tile-portrait :global(img) {
-    object-position: 50% 30%;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 72% 45%;
   }
 
   .tile-photo figcaption {
