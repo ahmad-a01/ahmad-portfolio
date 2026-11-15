@@ -64,7 +64,7 @@ const credits = [
 
   dl > div {
     display: grid;
-    grid-template-columns: 12rem 1fr;
+    grid-template-columns: 12rem minmax(0, 1fr);
     gap: 0.5rem 2rem;
     padding: 1.75rem 0;
     border-bottom: 1px solid var(--line);
@@ -82,7 +82,7 @@ const credits = [
 
   @media (max-width: 640px) {
     dl > div {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>
