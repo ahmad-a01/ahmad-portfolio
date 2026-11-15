@@ -4,8 +4,8 @@
 
 /* ------------------------------------------------------------------
    Design tokens
-   Warm paper palette carried over from the Framer site, with a sage
-   accent. Dark mode mirrors it with a warm charcoal.
+   Warm paper palette carried over from the Framer site, with a deep
+   navy accent. Dark mode mirrors it with a warm charcoal.
 ------------------------------------------------------------------- */
 :root {
   --bg: #f7f5f0;
@@ -15,8 +15,8 @@
   --ink-soft: #3d3b36;
   --muted: #6b6a63;
   --line: #e3dfd4;
-  --accent: #5f6e4f;
-  --accent-soft: #dfe5d5;
+  --accent: #1f3a5f;
+  --accent-soft: #dde4ee;
   --on-ink: #fbf9f4;
   --shadow: 0 1px 2px rgb(28 27 25 / 0.06), 0 8px 24px -12px rgb(28 27 25 / 0.18);
 
@@ -49,8 +49,8 @@
   --ink-soft: #d6d2c7;
   --muted: #a29f95;
   --line: #2f2d28;
-  --accent: #b4c3a0;
-  --accent-soft: #2b3324;
+  --accent: #9fb6db;
+  --accent-soft: #1b2638;
   --on-ink: #121210;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
   color-scheme: dark;
@@ -78,6 +78,9 @@ html {
 
 body {
   margin: 0;
+  /* Safety net: never allow sideways scrolling on small screens.
+     "clip" (unlike "hidden") keeps the sticky header working. */
+  overflow-x: clip;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
