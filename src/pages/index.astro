@@ -108,7 +108,7 @@ const [featured, ...rest] = projects;
         </article>
 
         <figure class="tile tile-portrait" data-reveal style="--delay:.06s">
-          <Image src={portrait} alt="Ahmad in a maroon sweater on a mountaintop above the clouds" widths={[300, 480, 640]} sizes="240px" />
+          <Image src={portrait} alt="Ahmad in a maroon sweater at an overlook above a lake, city and low clouds" widths={[500, 800, 1200, 1600]} sizes="(min-width: 900px) 600px, 100vw" />
         </figure>
 
         <article class="tile tile-now" data-reveal style="--delay:.12s">
@@ -460,7 +460,7 @@ const [featured, ...rest] = projects;
   }
 
   .tile-bio { grid-column: span 3; display: flex; flex-direction: column; justify-content: center; }
-  .tile-portrait { grid-column: span 3; display: grid; place-items: center; }
+  .tile-portrait { grid-column: span 3; padding: 0; position: relative; min-height: 18rem; }
   .tile-now { grid-column: span 2; background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
   .tile-edu { grid-column: span 4; }
   .tile-roots { grid-column: span 4; }
@@ -490,13 +490,15 @@ const [featured, ...rest] = projects;
     object-fit: cover;
   }
 
-  /* Square portrait, centered in its card next to the bio */
+  /* Portrait fills its card; the focal point keeps Ahmad (on the
+     right of the photo) in view at every card shape. */
   .tile-portrait :global(img) {
-    width: min(100%, 15rem);
-    aspect-ratio: 1;
-    border-radius: var(--radius-sm);
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border: 1px solid var(--line);
+    object-position: 72% 45%;
   }
 
   .tile-photo figcaption {
@@ -667,6 +669,11 @@ const [featured, ...rest] = projects;
     .tile-photo {
       grid-column: span 1;
       grid-row: auto;
+    }
+
+    .tile-portrait {
+      min-height: 0;
+      aspect-ratio: 4 / 3;
     }
 
     .timeline li {
