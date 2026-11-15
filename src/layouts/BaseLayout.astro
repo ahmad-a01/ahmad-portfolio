@@ -70,7 +70,9 @@ const ogImage = new URL(image ?? url('/og-image.png'), Astro.site);
               }
             }
           },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+          // threshold 0: reveal as soon as any part is on screen, so very
+          // tall elements can never stay hidden.
+          { rootMargin: '0px 0px -5% 0px', threshold: 0 },
         );
         els.forEach((el) => io.observe(el));
       } else {

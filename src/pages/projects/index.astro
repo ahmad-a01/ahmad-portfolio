@@ -38,7 +38,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 
   @media (max-width: 900px) {
     .grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

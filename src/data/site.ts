@@ -68,16 +68,4 @@ export const certificates = [
     image: 'ixdf',
     href: 'https://ixdf.org/members/ahmad-abdullahi/certificate/course/10a6c31b-b6c8-446d-8a5e-8414f93e1168',
   },
-  {
-    title: 'Figma Essential Training: The Basics',
-    issuer: 'LinkedIn Learning',
-    image: 'figma',
-    href: 'https://www.linkedin.com/learning/certificates/89a5940e80e5155df4f917e045be0513beb9040ec75fccdd74300eca372f4266/',
-  },
-  {
-    title: 'WordPress 5 Essential Training',
-    issuer: 'LinkedIn Learning',
-    image: 'wordpress',
-    href: 'https://www.linkedin.com/learning/certificates/9029bc325357f6ede8f14cea436d144bef452a8567aa7092b8516ec4b0ccfecb/',
-  },
 ] as const;

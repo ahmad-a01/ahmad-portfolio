@@ -41,7 +41,7 @@ const year = new Date().getFullYear();
 
   .top {
     display: grid;
-    grid-template-columns: 1.4fr 2fr auto;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr) auto;
     gap: 2rem;
     align-items: start;
   }
@@ -114,7 +114,7 @@ const year = new Date().getFullYear();
 
   @media (max-width: 760px) {
     .top {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>
