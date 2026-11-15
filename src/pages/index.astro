@@ -9,7 +9,7 @@ import { about, capabilities, certificates, experience, site, socials } from '..
 import { url } from '../lib/url';
 
 import avatar from '../assets/images/avatar.png';
-import portrait from '../assets/images/portrait.png';
+import portrait from '../assets/images/portrait.jpg';
 import landscape from '../assets/images/landscape.jpg';
 import ixdf from '../assets/certificates/ixdf.jpg';
 
@@ -108,7 +108,7 @@ const [featured, ...rest] = projects;
         </article>
 
         <figure class="tile tile-portrait" data-reveal style="--delay:.06s">
-          <Image src={portrait} alt="Ahmad smiling outdoors in a maroon polo" widths={[400, 700, 1000]} sizes="(min-width: 900px) 400px, 100vw" />
+          <Image src={portrait} alt="Ahmad in a maroon sweater on a mountaintop above the clouds" widths={[300, 480, 640]} sizes="240px" />
         </figure>
 
         <article class="tile tile-now" data-reveal style="--delay:.12s">
@@ -459,8 +459,8 @@ const [featured, ...rest] = projects;
     font-size: var(--step--1);
   }
 
-  .tile-bio { grid-column: span 3; }
-  .tile-portrait { grid-column: span 3; padding: 0; position: relative; min-height: 18rem; }
+  .tile-bio { grid-column: span 3; display: flex; flex-direction: column; justify-content: center; }
+  .tile-portrait { grid-column: span 3; display: grid; place-items: center; }
   .tile-now { grid-column: span 2; background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
   .tile-edu { grid-column: span 4; }
   .tile-roots { grid-column: span 4; }
@@ -482,7 +482,6 @@ const [featured, ...rest] = projects;
 
   /* Photos fill their tile without setting its height, so the text
      tiles beside them decide how tall each row is. */
-  .tile-portrait :global(img),
   .tile-photo :global(img) {
     position: absolute;
     inset: 0;
@@ -491,8 +490,13 @@ const [featured, ...rest] = projects;
     object-fit: cover;
   }
 
+  /* Circular portrait, centered in its card next to the bio */
   .tile-portrait :global(img) {
-    object-position: 50% 30%;
+    width: min(100%, 15rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px var(--line), 0 0 0 8px var(--bg), 0 0 0 9px var(--line);
   }
 
   .tile-photo figcaption {
@@ -663,11 +667,6 @@ const [featured, ...rest] = projects;
     .tile-photo {
       grid-column: span 1;
       grid-row: auto;
-    }
-
-    .tile-portrait {
-      min-height: 0;
-      aspect-ratio: 4 / 3;
     }
 
     .timeline li {
