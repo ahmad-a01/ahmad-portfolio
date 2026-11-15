@@ -490,13 +490,13 @@ const [featured, ...rest] = projects;
     object-fit: cover;
   }
 
-  /* Circular portrait, centered in its card next to the bio */
+  /* Square portrait, centered in its card next to the bio */
   .tile-portrait :global(img) {
     width: min(100%, 15rem);
     aspect-ratio: 1;
-    border-radius: 50%;
+    border-radius: var(--radius-sm);
     object-fit: cover;
-    box-shadow: 0 0 0 1px var(--line), 0 0 0 8px var(--bg), 0 0 0 9px var(--line);
+    border: 1px solid var(--line);
   }
 
   .tile-photo figcaption {
