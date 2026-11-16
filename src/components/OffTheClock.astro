@@ -80,14 +80,19 @@ const tags = [
         <span class="label">On the bike · {otc.bike.trail}</span>
         <span class="mono muted">{otc.bike.city}</span>
       </div>
-      <svg class="route" viewBox="0 0 320 150" role="img" aria-label={`${otc.bike.trail} from ${otc.bike.from} north to ${otc.bike.to}, about 5 miles`}>
-        <path class="trail-bg" d="M28 122 C 90 116, 118 96, 160 84 S 240 54, 290 34" />
-        <path class="trail" d="M28 122 C 90 116, 118 96, 160 84 S 240 54, 290 34" />
-        <circle class="stop" cx="28" cy="122" r="6" />
-        <text x="22" y="142">{otc.bike.from}</text>
-        <circle class="end" cx="290" cy="34" r="7" />
-        <text x="298" y="18" text-anchor="end">{otc.bike.to}</text>
-        <text class="flag" x="168" y="106">{otc.bike.segment}</text>
+      <svg class="route" viewBox="0 -8 320 172" role="img" aria-label={`${otc.bike.trail} from ${otc.bike.from} north to Westfield, with the ${otc.bike.ridden} from ${otc.bike.from} to ${otc.bike.to} highlighted as ridden`}>
+        <path class="trail-bg" d="M24 142 C 70 132, 80 106, 112 98 S 160 86, 182 70 S 222 50, 250 42 S 288 24, 300 16" />
+        <path class="trail-rest" d="M24 142 C 70 132, 80 106, 112 98 S 160 86, 182 70 S 222 50, 250 42 S 288 24, 300 16" />
+        <path class="trail" d="M24 142 C 70 132, 80 106, 112 98" />
+        <circle class="stop" cx="24" cy="142" r="6" />
+        <text x="18" y="160">{otc.bike.from}</text>
+        <text class="flag" x="30" y="114">{otc.bike.segment}</text>
+        <circle class="end" cx="112" cy="98" r="7" />
+        <text x="122" y="116">{otc.bike.to}</text>
+        <circle class="stop" cx="250" cy="42" r="4" />
+        <text x="244" y="34" text-anchor="end">Carmel</text>
+        <circle class="stop" cx="300" cy="16" r="4" />
+        <text x="300" y="4" text-anchor="end">Westfield</text>
       </svg>
       <div class="stat">
         <b>{otc.bike.ridden}</b>
@@ -589,6 +594,14 @@ const tags = [
     stroke: var(--line);
     stroke-width: 9;
     stroke-linecap: round;
+  }
+
+  .route .trail-rest {
+    fill: none;
+    stroke: color-mix(in oklab, var(--accent) 40%, var(--surface));
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 2 7;
   }
 
   .route .trail {
