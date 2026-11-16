@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import OffTheClock from '../components/OffTheClock.astro';
 import Icon from '../components/Icon.astro';
 import { about, capabilities, certificates, experience, site, socials } from '../data/site';
 import { url } from '../lib/url';
@@ -25,7 +26,7 @@ const [featured, ...rest] = projects;
   <section class="hero container" aria-labelledby="hero-title">
     <div class="hero-copy">
       <p class="status" data-reveal>
-        <span class="dot" aria-hidden="true"></span>
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
         {site.current.role} at {site.current.company}
       </p>
       <h1 id="hero-title" data-reveal style="--delay:.05s">
@@ -133,16 +134,11 @@ const [featured, ...rest] = projects;
           <Image src={landscape} alt="Mountain landscape overlooking a lake, photographed by Ahmad" widths={[500, 900, 1300]} sizes="(min-width: 900px) 500px, 100vw" />
           <figcaption>Shot on my Canon</figcaption>
         </figure>
-
-        <article class="tile tile-offline" data-reveal>
-          <p class="tile-label">When I’m offline</p>
-          <ul>
-            {about.offline.map((o) => <li class="chip">{o}</li>)}
-          </ul>
-        </article>
       </div>
     </div>
   </section>
+
+  <OffTheClock />
 
   <!-- Experience -->
   <section class="section container" id="experience" aria-labelledby="exp-title">
@@ -222,26 +218,31 @@ const [featured, ...rest] = projects;
     margin-bottom: 1.75rem;
   }
 
-  .dot {
-    position: relative;
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
+  /* Equalizer bars (green = currently active) */
+  .eq {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 0.85rem;
+    flex: none;
+  }
+
+  .eq i {
+    display: block;
+    width: 3px;
+    height: 40%;
+    border-radius: 2px;
     background: #3fa34d;
+    animation: eq 1s var(--ease) infinite alternate;
   }
 
-  .dot::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: inherit;
-    animation: ping 2.2s var(--ease) infinite;
-  }
+  .eq i:nth-child(2) { animation-duration: 0.7s; animation-delay: -0.3s; }
+  .eq i:nth-child(3) { animation-duration: 0.9s; animation-delay: -0.6s; }
 
-  @keyframes ping {
-    from { transform: scale(1); opacity: 0.6; }
-    to { transform: scale(2.8); opacity: 0; }
+  @keyframes eq {
+    0% { height: 25%; }
+    50% { height: 100%; }
+    100% { height: 45%; }
   }
 
   h1 {
@@ -465,7 +466,6 @@ const [featured, ...rest] = projects;
   .tile-edu { grid-column: span 4; }
   .tile-roots { grid-column: span 4; }
   .tile-photo { grid-column: span 2; padding: 0; position: relative; min-height: 16rem; }
-  .tile-offline { grid-column: span 6; }
 
   .tile-now .tile-label,
   .tile-now .muted {
@@ -511,15 +511,6 @@ const [featured, ...rest] = projects;
     color: #fff;
     font-size: var(--step--1);
     backdrop-filter: blur(8px);
-  }
-
-  .tile-offline ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
   /* Experience ----------------------------------------------------- */
@@ -659,8 +650,7 @@ const [featured, ...rest] = projects;
     .tile-bio,
     .tile-portrait,
     .tile-roots,
-    .tile-edu,
-    .tile-offline {
+    .tile-edu {
       grid-column: 1 / -1;
       grid-row: auto;
     }

@@ -50,7 +50,20 @@ export const about = {
     detail: 'Cognate in Business · Minors in Web Design & Human-Centered Computing',
     year: '2026',
   },
-  offline: ['Gaming on my PC', 'Lifting', 'Reading', 'Biking', 'Hooping', 'Time with people I care about'],
+};
+
+// "Off the clock" section on the home page.
+export const offTheClock = {
+  beat: { title: 'flow', src: '/audio/flow.mp3', duration: '2:05' },
+  game: { title: 'Cyberpunk 2077', href: 'https://www.cyberpunk.net/us/en/' },
+  pc: [
+    { part: 'CPU', name: 'Ryzen 5 2600' },
+    { part: 'GPU', name: 'Radeon RX 570' },
+    { part: 'RAM', name: '32 GB DDR4' },
+    { part: 'Storage', name: '500 GB SSD + 1.5 TB HDD' },
+    { part: 'Case', name: 'Cougar' },
+  ],
+  bike: { trail: 'Monon Trail', city: 'Indianapolis', from: 'Downtown Indy', to: 'Broad Ripple', segment: '≈ 5 mi', ridden: '10 mi' },
 };
 
 export const experience = [
