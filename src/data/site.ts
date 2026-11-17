@@ -41,9 +41,9 @@ export const capabilities = [
 
 export const about = {
   intro:
-    'I was born and raised in Bloomington, Indiana with my four siblings, while my parents are from Nigeria. I graduated from Indiana University Bloomington in May 2026 with a B.S. in Informatics, a cognate in Business, and minors in web design and human-centered computing.',
+    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background. I graduated from Indiana University Bloomington in May 2026 with a B.S. in Informatics, a cognate in Business, and minors in web design and human-centered computing.',
   roots:
-    'My creativity and passion for technology started early. I built my own gaming PC in high school, edited gaming videos for YouTube and short-form content for TikTok, took photographs on my Canon (yes, that’s a picture I took), and made hip-hop beats in FL Studio. Over time that evolved into designing websites and learning everything I could about product design.',
+    'My creativity and passion for technology started early. I started gaming on a Game Boy, PS2, Wii, and Xbox 360 when I was younger. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my Canon (yes, that’s a picture I took), and making music on FL Studio. Over time that evolved into designing websites and gaining an interest in product design.',
   education: {
     school: 'Indiana University Bloomington',
     degree: 'B.S. in Informatics',
