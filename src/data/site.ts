@@ -28,20 +28,9 @@ export const nav = [
   { label: 'Contact', href: '/#contact' },
 ];
 
-export const capabilities = [
-  'Product Design',
-  'UX Research',
-  'Interaction Design',
-  'Prototyping',
-  'Web Design',
-  'Design Systems',
-  'Front-end Development',
-  'Accessibility',
-];
-
 export const about = {
   intro:
-    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background. I graduated from Indiana University Bloomington in May 2026 with a B.S. in Informatics, a cognate in Business, and minors in web design and human-centered computing.',
+    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background. I graduated from Indiana University Bloomington in May 2026 with a B.S. in Informatics, a cognate in Business, and minors in web design and human-centered computing. I design and build clear, purposeful web and product experiences, from discovery research to final product.',
   roots:
     'My creativity and passion for technology started early. I started gaming on a Game Boy, PS2, Wii, and Xbox 360 when I was younger. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my Canon (yes, that’s a picture I took), and making music on FL Studio. Over time that evolved into designing websites and gaining an interest in product design.',
   education: {
@@ -63,7 +52,7 @@ export const offTheClock = {
     { part: 'Storage', name: '500 GB SSD + 1.5 TB HDD' },
     { part: 'Case', name: 'Cougar' },
   ],
-  bike: { trail: 'Monon Trail', city: 'Indianapolis', from: 'Downtown Indy', to: 'Broad Ripple', segment: '≈ 5 mi', ridden: '5 mi' },
+  bike: { trail: 'Monon Trail', city: 'Indianapolis', stops: ['Downtown Indy', 'Broad Ripple', 'Carmel', 'Westfield'] },
 };
 
 export const experience = [

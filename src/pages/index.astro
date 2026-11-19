@@ -6,7 +6,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import OffTheClock from '../components/OffTheClock.astro';
 import Icon from '../components/Icon.astro';
-import { about, capabilities, certificates, experience, site, socials } from '../data/site';
+import { about, certificates, experience, site, socials } from '../data/site';
 import { url } from '../lib/url';
 
 import avatar from '../assets/images/avatar.png';
@@ -34,13 +34,9 @@ const [featured, ...rest] = projects;
       </p>
       <h1 id="hero-title" data-reveal style="--delay:.05s">
         <span class="hi">Hi, I’m Ahmad.</span>
-        A product designer solving the <em class="serif-italic">right</em> problems with human‑centered design.
+        A product designer, builder, and <em class="serif-italic">creative</em> thinker based in Indiana.
       </h1>
-      <p class="lede muted" data-reveal style="--delay:.1s">
-        Based in {site.location.split(',')[0]}. I design and build clear, purposeful web and product experiences,
-        from discovery research to final product.
-      </p>
-      <div class="hero-actions" data-reveal style="--delay:.15s">
+      <div class="hero-actions" data-reveal style="--delay:.1s">
         <a class="btn" href={url('/#work')}>See my work <Icon name="arrow-right" /></a>
         <a class="btn btn-ghost" href={url('/#about')}>About me</a>
         <ul class="hero-socials" aria-label="Social links">
@@ -59,30 +55,14 @@ const [featured, ...rest] = projects;
       <div class="avatar">
         <Image src={avatar} alt="Portrait of Ahmad Abdullahi" widths={[320, 520, 760]} sizes="(min-width: 900px) 360px, 60vw" loading="eager" fetchpriority="high" />
       </div>
-      <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
-        <defs><path id="circle" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0" /></defs>
-        <text><textPath href="#circle">PRODUCT DESIGNER • INDIANA • UX/UI • </textPath></text>
-      </svg>
     </div>
   </section>
-
-  <!-- Capabilities marquee -->
-  <div class="marquee" aria-label="Capabilities">
-    <div class="track">
-      {[0, 1].map((dup) => (
-        <ul aria-hidden={dup === 1 ? 'true' : undefined}>
-          {capabilities.map((c) => <li>{c}</li>)}
-        </ul>
-      ))}
-    </div>
-  </div>
 
   <!-- Work -->
   <section class="section container" id="work" aria-labelledby="work-title">
     <div class="section-head">
       <div>
-        <p class="eyebrow">Selected work</p>
-        <h2 id="work-title">Projects I’m proud of</h2>
+        <h2 id="work-title">My Work</h2>
       </div>
       <p class="muted head-note">A look at some of the best design projects I’ve worked on, from research to launch.</p>
     </div>
@@ -100,8 +80,7 @@ const [featured, ...rest] = projects;
     <div class="container">
       <div class="section-head">
         <div>
-          <p class="eyebrow">About me</p>
-          <h2 id="about-title">Designer, builder, <em class="serif-italic">creative</em> at heart.</h2>
+          <h2 id="about-title">About Me</h2>
         </div>
       </div>
 
@@ -147,8 +126,7 @@ const [featured, ...rest] = projects;
   <section class="section container" id="experience" aria-labelledby="exp-title">
     <div class="section-head">
       <div>
-        <p class="eyebrow">Experience</p>
-        <h2 id="exp-title">Where I’ve worked</h2>
+        <h2 id="exp-title">Experiences</h2>
       </div>
       <a class="btn btn-ghost" href={site.resume} target="_blank" rel="noopener"><Icon name="file" /> View resume</a>
     </div>
@@ -172,8 +150,7 @@ const [featured, ...rest] = projects;
     <div class="container">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Always learning</p>
-          <h2 id="cert-title">Certification</h2>
+          <h2 id="cert-title">Certifications</h2>
         </div>
       </div>
       <ul class="certs">
@@ -255,13 +232,6 @@ const [featured, ...rest] = projects;
     color: var(--accent);
   }
 
-  .lede {
-    max-width: 46ch;
-    margin-top: 1.75rem;
-    font-size: var(--step-1);
-    line-height: 1.5;
-  }
-
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
@@ -317,75 +287,6 @@ const [featured, ...rest] = projects;
     height: 100%;
     object-fit: cover;
     object-position: 50% 40%;
-  }
-
-  .badge {
-    position: absolute;
-    left: -2.5rem;
-    bottom: 2rem;
-    width: 8.5rem;
-    padding: 0.5rem;
-    border-radius: 50%;
-    background: var(--ink);
-    fill: var(--on-ink);
-    font: 600 9.5px/1 var(--font-body);
-    letter-spacing: 0.18em;
-    animation: spin 22s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* Marquee -------------------------------------------------------- */
-  .marquee {
-    overflow: hidden;
-    overflow: clip;
-    contain: paint;
-    max-width: 100%;
-    border-block: 1px solid var(--line);
-    padding-block: 1.1rem;
-    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  }
-
-  .track {
-    display: flex;
-    width: max-content;
-    animation: scroll 38s linear infinite;
-  }
-
-  .marquee:hover .track {
-    animation-play-state: paused;
-  }
-
-  .track ul {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .track li {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    padding-right: 2.5rem;
-    font-family: var(--font-display);
-    font-size: var(--step-2);
-    font-style: italic;
-    white-space: nowrap;
-    color: var(--ink-soft);
-  }
-
-  .track li::after {
-    content: '✦';
-    font-style: normal;
-    font-size: 0.6em;
-    color: var(--accent);
-  }
-
-  @keyframes scroll {
-    to { transform: translateX(-50%); }
   }
 
   /* Work ----------------------------------------------------------- */
@@ -610,15 +511,8 @@ const [featured, ...rest] = projects;
 
     .hero-visual {
       order: -1;
-      justify-self: start;
+      justify-self: center;
       width: min(62%, 280px);
-    }
-
-    .badge {
-      left: auto;
-      right: -3rem;
-      bottom: 1rem;
-      width: 6.5rem;
     }
 
     .work-grid,
