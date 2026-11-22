@@ -3,20 +3,14 @@ import { Image } from 'astro:assets';
 import { offTheClock as otc } from '../data/site';
 import { url } from '../lib/url';
 import cyberpunk from '../assets/images/cyberpunk-2077.jpg';
+import flStudio from '../assets/images/fl-studio.jpg';
 
 const tags = [
   { key: 'game', label: 'Gaming' },
   { key: 'beats', label: 'Making beats' },
-  { key: 'bike', label: 'Biking' },
+  { key: 'active', label: 'Staying active' },
 ];
 
-// Positions of the stops along the trail drawing (viewBox 0 0 640 150)
-const stopPoints = [
-  { x: 30, y: 120, anchor: 'start', dy: 24 },
-  { x: 200, y: 92, anchor: 'middle', dy: -16 },
-  { x: 470, y: 50, anchor: 'middle', dy: -16 },
-  { x: 610, y: 22, anchor: 'end', dy: -12 },
-];
 ---
 <section class="section container otc" id="off-the-clock" aria-labelledby="otc-title">
   <div class="section-head">
@@ -54,47 +48,47 @@ const stopPoints = [
       </dl>
     </article>
 
-    <!-- Beats: compact strip -->
+    <!-- Beats: player card (left) + FL Studio image (right) -->
     <article class="tile t-beats" data-key="beats" data-reveal>
-      <button class="play" type="button" data-play aria-label={`Play ${otc.beat.title}`}>
-        <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-        <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
-      </button>
-      <div class="beat-body">
-        <div class="beat-meta">
-          <span class="label">Beats · made in FL Studio</span>
-          <span class="track">{otc.beat.title}</span>
-          <span class="time" data-time>0:00 / {otc.beat.duration}</span>
-        </div>
-        <div class="screen"><canvas data-viz aria-hidden="true"></canvas></div>
+      <div class="beat-meta">
+        <span class="label">Beats · made in FL Studio</span>
+        <span class="time" data-time>0:00 / {otc.beat.duration}</span>
+      </div>
+      <p class="track">{otc.beat.title}</p>
+      <div class="screen"><canvas data-viz aria-hidden="true"></canvas></div>
+      <div class="controls">
+        <button class="play" type="button" data-play aria-label={`Play ${otc.beat.title}`}>
+          <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+        </button>
         <input class="seek" type="range" min="0" max="1000" value="0" step="1" data-seek aria-label={`Seek within ${otc.beat.title}`} />
       </div>
       <audio data-audio src={url(otc.beat.src)} preload="metadata"></audio>
     </article>
 
-    <!-- Biking -->
-    <article class="tile t-bike" data-key="bike" data-reveal>
-      <div class="tile-top">
-        <span class="bike-title">
-          <svg class="bike-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="5.5" cy="16.5" r="3.5" /><circle cx="18.5" cy="16.5" r="3.5" />
-            <path d="M5.5 16.5 9 9.5h6.5l3 7M9 9.5l3.5 7h-7M15.5 9.5l-1.2-3H12" />
-          </svg>
-          <span class="label">On the bike · {otc.bike.trail}</span>
-        </span>
-        <span class="mono muted">{otc.bike.city}</span>
-      </div>
-      <svg class="route" viewBox="0 0 640 150" role="img" aria-label={`Map of the ${otc.bike.trail} in ${otc.bike.city}: ${otc.bike.stops.join(', ')}`}>
-        <path class="trail-bg" d="M30 120 C 110 116, 150 98, 200 92 S 330 80, 380 66 S 520 44, 610 22" />
-        <path class="trail" d="M30 120 C 110 116, 150 98, 200 92 S 330 80, 380 66 S 520 44, 610 22" />
-        {stopPoints.map((pt, i) => (
-          <g>
-            <circle class="stop" cx={pt.x} cy={pt.y} r="6" />
-            <text x={pt.x} y={pt.y + pt.dy} text-anchor={pt.anchor}>{otc.bike.stops[i]}</text>
-          </g>
-        ))}
-      </svg>
-    </article>
+    <figure class="tile t-fl" data-key="fl" data-group="beats" data-reveal style="--delay:.06s">
+      <Image src={flStudio} alt="FL Studio logo" widths={[480, 720, 1000]} sizes="(min-width: 760px) 600px, 100vw" />
+    </figure>
+
+    <!-- Staying active -->
+    <div class="activities">
+      {otc.activities.map((a, i) => (
+        <article class="tile t-act" data-key="active" data-reveal style={`--delay:${i * 0.06}s`}>
+          <span class="act-icon" aria-hidden="true">
+            {a.icon === 'bike' && (
+              <svg viewBox="0 0 24 24"><circle cx="5.5" cy="16.5" r="3.5" /><circle cx="18.5" cy="16.5" r="3.5" /><path d="M5.5 16.5 9 9.5h6.5l3 7M9 9.5l3.5 7h-7M15.5 9.5l-1.2-3H12" /></svg>
+            )}
+            {a.icon === 'run' && (
+              <svg viewBox="0 0 24 24"><circle cx="15" cy="4.5" r="2" /><path d="M13.5 8 11 14l3 3-1 4.5M11 14l-2.8 3.4L4.5 18M13.5 8.2 9.5 9.6 7.6 12.6M13.8 8.6l1.8 3.2 3.4.8" /></svg>
+            )}
+            {a.icon === 'gym' && (
+              <svg viewBox="0 0 24 24"><rect x="2.5" y="9" width="2.5" height="6" rx="1" /><rect x="5" y="6.5" width="3" height="11" rx="1" /><rect x="16" y="6.5" width="3" height="11" rx="1" /><rect x="19" y="9" width="2.5" height="6" rx="1" /><path d="M8 12h8" /></svg>
+            )}
+          </span>
+          <h3>{a.label}</h3>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -339,7 +333,7 @@ const stopPoints = [
     opacity: 1;
   }
 
-  /* Grid: gaming row (two halves), then the beat strip, then the trail */
+  /* Grid: gaming row (two halves), beats row (two halves), then activities */
   .bento {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -372,9 +366,11 @@ const stopPoints = [
     border-color: var(--accent);
   }
 
-  .t-beats,
-  .t-bike {
+  .activities {
     grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.75rem, 0.5rem + 0.8vw, 1.25rem);
   }
 
   .tile-top {
@@ -502,65 +498,27 @@ const stopPoints = [
     color: var(--accent);
   }
 
-  /* Beats strip ------------------------------------------------------- */
+  /* Beats ---------------------------------------------------------- */
   .t-beats {
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    column-gap: clamp(0.9rem, 0.6rem + 1vw, 1.5rem);
-  }
-
-  .play {
-    display: grid;
-    place-items: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    border: 0;
-    border-radius: 50%;
-    background: var(--accent);
-    color: var(--on-ink);
-    cursor: pointer;
-    transition: transform 0.3s var(--ease);
-  }
-
-  .play:hover {
-    transform: scale(1.06);
-  }
-
-  .play svg {
-    width: 1.15rem;
-    height: 1.15rem;
-  }
-
-  .play .i-pause,
-  .play.is-playing .i-play {
-    display: none;
-  }
-
-  .play.is-playing .i-pause {
-    display: block;
-  }
-
-  .beat-body {
-    display: grid;
-    gap: 0.55rem;
-    min-width: 0;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    align-content: stretch;
+    gap: 0.85rem;
   }
 
   .beat-meta {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.25rem 0.9rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .track {
     font-family: var(--font-display);
-    font-size: var(--step-1);
+    font-size: var(--step-2);
     line-height: 1;
   }
 
   .time {
-    margin-left: auto;
     font: 500 0.75rem/1 ui-monospace, 'SF Mono', Menlo, monospace;
     font-variant-numeric: tabular-nums;
     color: var(--muted);
@@ -569,7 +527,8 @@ const stopPoints = [
 
   .screen {
     position: relative;
-    height: 3.5rem;
+    min-height: 9rem;
+    height: 100%;
     overflow: hidden;
     border-radius: var(--radius-sm);
     background: #15171c;
@@ -583,6 +542,44 @@ const stopPoints = [
     height: 100%;
   }
 
+  .controls {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .play {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-ink);
+    cursor: pointer;
+    transition: transform 0.3s var(--ease);
+  }
+
+  .play:hover {
+    transform: scale(1.06);
+  }
+
+  .play svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .play .i-pause,
+  .play.is-playing .i-play {
+    display: none;
+  }
+
+  .play.is-playing .i-pause {
+    display: block;
+  }
+
   .seek {
     width: 100%;
     min-width: 0;
@@ -591,55 +588,61 @@ const stopPoints = [
     cursor: pointer;
   }
 
-  /* Biking ---------------------------------------------------------- */
-  .bike-title {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
+  .t-fl {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    min-height: 18rem;
+    background: #34495a;
+    border-color: transparent;
   }
 
-  .bike-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+  .t-fl :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s var(--ease);
+  }
+
+  .t-fl:hover :global(img) {
+    transform: scale(1.04);
+  }
+
+  /* Staying active ---------------------------------------------------- */
+  .t-act {
+    justify-items: center;
+    align-content: start;
+    gap: 0.85rem;
+    padding-block: clamp(1.4rem, 1rem + 1.5vw, 2.2rem);
+    text-align: center;
+  }
+
+  .act-icon {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1.1rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .act-icon svg {
+    width: 2rem;
+    height: 2rem;
     fill: none;
-    stroke: var(--accent);
+    stroke: currentColor;
     stroke-width: 1.7;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
-  .route {
-    display: block;
-    width: 100%;
-    max-width: 52rem;
-    height: auto;
-    margin-inline: auto;
-    overflow: visible;
-  }
-
-  .route .trail-bg {
-    fill: none;
-    stroke: var(--line);
-    stroke-width: 10;
-    stroke-linecap: round;
-  }
-
-  .route .trail {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 3.5;
-    stroke-linecap: round;
-  }
-
-  .route .stop {
-    fill: var(--surface);
-    stroke: var(--accent);
-    stroke-width: 2.5;
-  }
-
-  .route text {
-    font: 600 13px var(--font-body);
-    fill: var(--ink-soft);
+  .t-act h3 {
+    font-size: var(--step-1);
+    line-height: 1.2;
   }
 
   /* Responsive ---------------------------------------------------------- */
@@ -662,14 +665,41 @@ const stopPoints = [
     }
   }
 
-  @media (max-width: 560px) {
-    .play {
-      width: 2.75rem;
-      height: 2.75rem;
+  @media (max-width: 760px) {
+    .t-fl {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
     }
 
-    .route text {
-      font-size: 22px;
+    .screen {
+      height: auto;
+      aspect-ratio: 16 / 7;
+      min-height: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .activities {
+      gap: 0.6rem;
+    }
+
+    .t-act {
+      padding: 1.1rem 0.6rem;
+    }
+
+    .act-icon {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 0.9rem;
+    }
+
+    .act-icon svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+
+    .t-act h3 {
+      font-size: 1rem;
     }
   }
 </style>
