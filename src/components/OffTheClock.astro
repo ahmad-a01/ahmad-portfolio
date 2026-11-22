@@ -50,12 +50,8 @@ const tags = [
 
     <!-- Beats: player card (left) + FL Studio image (right) -->
     <article class="tile t-beats" data-key="beats" data-reveal>
-      <div class="beat-meta">
-        <span class="label">Beats · made in FL Studio</span>
-        <span class="time" data-time>0:00 / {otc.beat.duration}</span>
-      </div>
-      <p class="track">{otc.beat.title}</p>
-      <div class="screen"><canvas data-viz aria-hidden="true"></canvas></div>
+      <canvas data-viz aria-hidden="true"></canvas>
+      <span class="visually-hidden" data-time aria-live="off">0:00 / {otc.beat.duration}</span>
       <div class="controls">
         <button class="play" type="button" data-play aria-label={`Play ${otc.beat.title}`}>
           <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
@@ -164,10 +160,11 @@ const tags = [
       g.clearRect(0, 0, w, h);
       const slot = w / N;
       const bw = Math.max(2 * d, slot * 0.55);
-      const mid = h / 2;
+      // Bars sit above the play controls, which overlay the bottom of the card
+      const mid = h * 0.42;
       const progress = audio.duration ? audio.currentTime / audio.duration : 0;
       for (let i = 0; i < N; i++) {
-        const bh = Math.max(3 * d, levels[i] * h * 0.82);
+        const bh = Math.max(3 * d, levels[i] * h * 0.6);
         g.fillStyle = (i + 0.5) / N <= progress ? '#9fc0f0' : 'rgba(160, 172, 190, 0.32)';
         bar(i * slot + (slot - bw) / 2, mid - bh / 2, bw, bh, Math.min(bw / 2, 2 * d));
       }
@@ -500,41 +497,16 @@ const tags = [
 
   /* Beats ---------------------------------------------------------- */
   .t-beats {
-    grid-template-rows: auto auto minmax(0, 1fr) auto;
-    align-content: stretch;
-    gap: 0.85rem;
-  }
-
-  .beat-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .track {
-    font-family: var(--font-display);
-    font-size: var(--step-2);
-    line-height: 1;
-  }
-
-  .time {
-    font: 500 0.75rem/1 ui-monospace, 'SF Mono', Menlo, monospace;
-    font-variant-numeric: tabular-nums;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
-  .screen {
     position: relative;
-    min-height: 9rem;
-    height: 100%;
     overflow: hidden;
-    border-radius: var(--radius-sm);
-    background: #15171c;
+    min-height: 18rem;
+    padding: 0;
+    align-content: end;
+    background: radial-gradient(120% 80% at 50% 110%, #1d2a40 0%, transparent 60%), #15171c;
+    border-color: transparent;
   }
 
-  .screen canvas {
+  .t-beats canvas {
     position: absolute;
     inset: 0;
     display: block;
@@ -543,10 +515,13 @@ const tags = [
   }
 
   .controls {
+    position: relative;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
     gap: 0.9rem;
+    padding: 1rem clamp(1rem, 0.8rem + 0.8vw, 1.4rem);
+    background: linear-gradient(to top, rgb(10 12 16 / 0.85), transparent);
   }
 
   .play {
@@ -556,8 +531,8 @@ const tags = [
     height: 3rem;
     border: 0;
     border-radius: 50%;
-    background: var(--accent);
-    color: var(--on-ink);
+    background: #f2efe7;
+    color: #15171c;
     cursor: pointer;
     transition: transform 0.3s var(--ease);
   }
@@ -584,7 +559,7 @@ const tags = [
     width: 100%;
     min-width: 0;
     margin: 0;
-    accent-color: var(--accent);
+    accent-color: #9fc0f0;
     cursor: pointer;
   }
 
@@ -623,19 +598,16 @@ const tags = [
   .act-icon {
     display: grid;
     place-items: center;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 1.1rem;
-    background: var(--accent-soft);
-    color: var(--accent);
+    color: var(--ink);
   }
 
   .act-icon svg {
-    width: 2rem;
-    height: 2rem;
+    width: clamp(4rem, 2.5rem + 5vw, 7.5rem);
+    height: auto;
+    aspect-ratio: 1;
     fill: none;
     stroke: currentColor;
-    stroke-width: 1.7;
+    stroke-width: 1.3;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
@@ -671,10 +643,9 @@ const tags = [
       aspect-ratio: 16 / 9;
     }
 
-    .screen {
-      height: auto;
-      aspect-ratio: 16 / 7;
+    .t-beats {
       min-height: 0;
+      aspect-ratio: 16 / 10;
     }
   }
 
@@ -687,15 +658,9 @@ const tags = [
       padding: 1.1rem 0.6rem;
     }
 
-    .act-icon {
-      width: 3.2rem;
-      height: 3.2rem;
-      border-radius: 0.9rem;
-    }
-
     .act-icon svg {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 3.6rem;
+      stroke-width: 1.5;
     }
 
     .t-act h3 {
