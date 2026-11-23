@@ -26,7 +26,7 @@ const [featured, ...rest] = projects;
   <section class="hero container" aria-labelledby="hero-title">
     <div class="hero-copy">
       <h1 id="hero-title" data-reveal>
-        A product designer, creative thinker, and builder based in <em class="serif-italic">Indiana</em>.
+        Product designer, creative thinker, and builder based in <em class="serif-italic">Indiana</em>.
       </h1>
       <ul class="tools" aria-label="Tools I use">
         {tools.map((t, i) => (
@@ -240,6 +240,14 @@ const [featured, ...rest] = projects;
     width: 1.15rem;
     height: 1.15rem;
     fill: var(--ink);
+  }
+
+  /* Phones: two tools per row */
+  @media (max-width: 560px) {
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   /* Work ----------------------------------------------------------- */
