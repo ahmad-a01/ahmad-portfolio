@@ -9,8 +9,8 @@ import bike from '../assets/images/bike.png';
 
 const tags = [
   { key: 'game', label: 'Gaming' },
-  { key: 'beats', label: 'Making beats' },
-  { key: 'active', label: 'Staying active' },
+  { key: 'beats', label: 'Music' },
+  { key: 'active', label: 'Fitness' },
 ];
 
 ---
@@ -53,6 +53,7 @@ const tags = [
     <!-- Beats: player card (left) + FL Studio image (right) -->
     <article class="tile t-beats" data-key="beats" data-reveal>
       <canvas data-viz aria-hidden="true"></canvas>
+      <span class="label beat-label">My favorite beat</span>
       <span class="visually-hidden" data-time aria-live="off">0:00 / {otc.beat.duration}</span>
       <div class="controls">
         <button class="play" type="button" data-play aria-label={`Play ${otc.beat.title}`}>
@@ -66,6 +67,13 @@ const tags = [
 
     <figure class="tile t-fl" data-key="fl" data-group="beats" data-reveal style="--delay:.06s">
       <Image src={flStudio} alt="FL Studio logo" widths={[480, 720, 1000]} sizes="(min-width: 760px) 600px, 100vw" />
+      <figcaption class="media-overlay">
+        <h3>
+          <a class="game-link" href={otc.daw.href} target="_blank" rel="noopener">
+            {otc.daw.title} <span aria-hidden="true">↗</span>
+          </a>
+        </h3>
+      </figcaption>
     </figure>
 
     <!-- Staying active -->
@@ -84,6 +92,7 @@ const tags = [
             )}
           </span>
           <h3>{a.label}</h3>
+          <p class="act-detail"><span>{a.detailLabel}:</span> {a.detail}</p>
         </article>
       ))}
     </div>
@@ -163,10 +172,10 @@ const tags = [
       const slot = w / N;
       const bw = Math.max(2 * d, slot * 0.55);
       // Bars sit above the play controls, which overlay the bottom of the card
-      const mid = h * 0.42;
+      const mid = h * 0.47;
       const progress = audio.duration ? audio.currentTime / audio.duration : 0;
       for (let i = 0; i < N; i++) {
-        const bh = Math.max(3 * d, levels[i] * h * 0.6);
+        const bh = Math.max(3 * d, levels[i] * h * 0.48);
         g.fillStyle = (i + 0.5) / N <= progress ? '#9fc0f0' : 'rgba(160, 172, 190, 0.32)';
         bar(i * slot + (slot - bw) / 2, mid - bh / 2, bw, bh, Math.min(bw / 2, 2 * d));
       }
@@ -417,7 +426,8 @@ const tags = [
     transform: scale(1.04);
   }
 
-  .game-overlay {
+  .game-overlay,
+  .media-overlay {
     position: relative;
     display: grid;
     gap: 0.2rem;
@@ -430,7 +440,8 @@ const tags = [
     color: rgb(246 243 236 / 0.75);
   }
 
-  .game-overlay h3 {
+  .game-overlay h3,
+  .media-overlay h3 {
     font-size: var(--step-2);
     color: #fff;
   }
@@ -516,6 +527,23 @@ const tags = [
     height: 100%;
   }
 
+  .t-beats::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 5rem;
+    background: linear-gradient(to bottom, rgb(10 12 16 / 0.75), transparent);
+    pointer-events: none;
+  }
+
+  .beat-label {
+    position: absolute;
+    top: clamp(1rem, 0.8rem + 0.8vw, 1.4rem);
+    left: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+    z-index: 1;
+    color: rgb(246 243 236 / 0.85);
+  }
+
   .controls {
     position: relative;
     display: grid;
@@ -571,6 +599,7 @@ const tags = [
     padding: 0;
     margin: 0;
     min-height: 18rem;
+    align-content: end;
     background: #34495a;
     border-color: transparent;
   }
@@ -630,6 +659,18 @@ const tags = [
     line-height: 1.2;
   }
 
+  .act-detail {
+    margin-top: -0.35rem;
+    font-size: var(--step--1);
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  .act-detail span {
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
   /* Responsive ---------------------------------------------------------- */
   @media (max-width: 760px) {
     .bento {
@@ -679,6 +720,15 @@ const tags = [
 
     .t-act h3 {
       font-size: 1rem;
+    }
+
+    .act-detail {
+      margin-top: -0.2rem;
+      font-size: 0.75rem;
+    }
+
+    .act-detail span {
+      display: block;
     }
   }
 </style>

@@ -1,6 +1,8 @@
 ---
 import Icon from './Icon.astro';
-import { nav, site } from '../data/site';
+import { nav, site, socials } from '../data/site';
+
+const linkedin = socials.find((s) => s.icon === 'linkedin')!;
 import { url } from '../lib/url';
 ---
 <header class="header">
@@ -19,13 +21,13 @@ import { url } from '../lib/url';
         <Icon name="sun" class="sun" />
         <Icon name="moon" class="moon" />
       </button>
-      <a class="btn cta" href={site.calendly} target="_blank" rel="noopener">Book a call</a>
+      <a class="btn cta" href={linkedin.href} target="_blank" rel="noopener">Connect with Me</a>
 
       <details class="menu">
         <summary aria-label="Open menu"><span></span><span></span></summary>
         <div class="menu-panel">
           {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
-          <a href={site.calendly} target="_blank" rel="noopener">Book a call ↗</a>
+          <a href={linkedin.href} target="_blank" rel="noopener">Connect with Me ↗</a>
         </div>
       </details>
     </div>
