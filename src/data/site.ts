@@ -45,7 +45,7 @@ export const about = {
 export const offTheClock = {
   beat: { title: 'flow', src: '/audio/flow.mp3', duration: '2:05' },
   game: { title: 'Cyberpunk 2077', href: 'https://www.cyberpunk.net/us/en/' },
-  daw: { title: 'FL Studio 20', href: 'https://www.image-line.com/fl-studio/' },
+  daw: { title: 'FL Studio', href: 'https://www.image-line.com/fl-studio/' },
   pc: [
     { part: 'CPU', name: 'Ryzen 5 2600' },
     { part: 'GPU', name: 'Radeon RX 570' },
@@ -54,9 +54,9 @@ export const offTheClock = {
     { part: 'Case', name: 'Cougar' },
   ],
   activities: [
-    { label: 'Biking', icon: 'bike', detailLabel: 'My Bike', detail: 'Giant Escape 3' },
-    { label: 'Running', icon: 'run', detailLabel: 'My Running Shoes', detail: 'Brooks Revel 8' },
-    { label: 'Strength training', icon: 'gym', detailLabel: 'My Gym Split', detail: 'Arnold Split' },
+    { label: 'Biking', icon: 'bike', detail: 'Giant Escape 3' },
+    { label: 'Running', icon: 'run', detail: 'Brooks Revel 8' },
+    { label: 'Strength training', icon: 'gym', detail: 'Arnold Split' },
   ],
 };
 

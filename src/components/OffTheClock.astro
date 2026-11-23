@@ -34,7 +34,6 @@ const tags = [
             {otc.game.title} <span aria-hidden="true">↗</span>
           </a>
         </h3>
-        <p class="pc-note">Playing on my own PC build <span class="arrow-side" aria-hidden="true">→</span><span class="arrow-down" aria-hidden="true">↓</span></p>
       </div>
     </article>
 
@@ -68,6 +67,7 @@ const tags = [
     <figure class="tile t-fl" data-key="fl" data-group="beats" data-reveal style="--delay:.06s">
       <Image src={flStudio} alt="FL Studio logo" widths={[480, 720, 1000]} sizes="(min-width: 760px) 600px, 100vw" />
       <figcaption class="media-overlay">
+        <span class="label">Where I make music</span>
         <h3>
           <a class="game-link" href={otc.daw.href} target="_blank" rel="noopener">
             {otc.daw.title} <span aria-hidden="true">↗</span>
@@ -92,7 +92,7 @@ const tags = [
             )}
           </span>
           <h3>{a.label}</h3>
-          <p class="act-detail"><span>{a.detailLabel}:</span> {a.detail}</p>
+          <p class="act-detail">{a.detail}</p>
         </article>
       ))}
     </div>
@@ -436,7 +436,8 @@ const tags = [
     color: #f6f3ec;
   }
 
-  .game-overlay .label {
+  .game-overlay .label,
+  .media-overlay .label {
     color: rgb(246 243 236 / 0.75);
   }
 
@@ -460,15 +461,6 @@ const tags = [
   .game-link span {
     font-size: 0.65em;
     opacity: 0.75;
-  }
-
-  .pc-note {
-    font-size: 0.85rem;
-    color: rgb(246 243 236 / 0.75);
-  }
-
-  .arrow-down {
-    display: none;
   }
 
   .t-pc {
@@ -666,10 +658,6 @@ const tags = [
     color: var(--muted);
   }
 
-  .act-detail span {
-    font-weight: 600;
-    color: var(--ink-soft);
-  }
 
   /* Responsive ---------------------------------------------------------- */
   @media (max-width: 760px) {
@@ -680,14 +668,6 @@ const tags = [
     .t-game {
       min-height: 0;
       aspect-ratio: 16 / 11;
-    }
-
-    .arrow-side {
-      display: none;
-    }
-
-    .arrow-down {
-      display: inline;
     }
   }
 
@@ -725,10 +705,6 @@ const tags = [
     .act-detail {
       margin-top: -0.2rem;
       font-size: 0.75rem;
-    }
-
-    .act-detail span {
-      display: block;
     }
   }
 </style>
