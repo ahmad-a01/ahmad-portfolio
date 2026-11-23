@@ -29,10 +29,12 @@ export const nav = [
 ];
 
 export const about = {
-  intro:
-    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background in a Muslim household.',
-  roots:
-    'My creativity and passion for technology started early. When I was about 7 years old, I first started gaming on a Game Boy then later on started playing on the PS2, Wii, and Xbox 360. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my camera, and making music on FL Studio. Over time that evolved into designing websites and gaining an interest in a product design career.',
+  // The About Me story, one string per paragraph.
+  story: [
+    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background in a Muslim household. My creativity and passion for technology started early.',
+    'When I was about 7 years old, I first started gaming on a Game Boy then later on started playing on the PS2, Wii, and Xbox 360. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my camera, and making music on FL Studio.',
+    'Over time that evolved into designing websites and gaining an interest in a product design career.',
+  ],
   education: {
     school: 'Indiana University Bloomington',
     degree: 'B.S. in Informatics',
