@@ -50,14 +50,17 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
       </div>
     </div>
 
-    <ul class="tools" aria-label="Tools I use">
-      {tools.map((t, i) => (
-        <li class="tool" data-reveal style={`--delay:${i * 0.04}s`}>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.path} /></svg>
-          <span>{t.name}</span>
-        </li>
-      ))}
-    </ul>
+    <div class="tools-row">
+      <p class="tools-label" id="tools-label">Tools I’ve used</p>
+      <ul class="tools" aria-labelledby="tools-label">
+        {tools.map((t, i) => (
+          <li class="tool" title={t.name} data-reveal style={`--delay:${i * 0.04}s`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.path} /></svg>
+            <span class="tool-name">{t.name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
 
     <div class="work-grid">
       {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
@@ -231,11 +234,27 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     margin-bottom: 1.25rem;
   }
 
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.1rem;
+    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  }
+
+  .tools-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
   .tools {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0 0 clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    margin: 0;
     padding: 0;
     list-style: none;
   }
@@ -264,11 +283,31 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     fill: var(--ink);
   }
 
-  /* Phones: two tools per row */
+  /* Phones: label on its own line, tools shown as icons only */
   @media (max-width: 560px) {
-    .tools {
+    .tools-row {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .tools {
+      gap: 0.4rem;
+    }
+
+    .tool {
+      width: 2.6rem;
+      height: 2.6rem;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .tool-name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
   }
 
