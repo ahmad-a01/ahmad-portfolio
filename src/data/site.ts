@@ -43,7 +43,7 @@ export const about = {
 
 // "Off the clock" section on the home page.
 export const offTheClock = {
-  beat: { title: 'flow', src: '/audio/flow.mp3', duration: '2:05' },
+  beat: { title: 'cl1ck', src: '/audio/cl1ck.mp3', duration: '1:45' },
   game: { title: 'Cyberpunk 2077', href: 'https://www.cyberpunk.net/us/en/' },
   daw: { title: 'FL Studio', href: 'https://www.image-line.com/fl-studio/' },
   activities: [
