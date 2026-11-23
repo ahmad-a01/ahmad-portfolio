@@ -5,6 +5,7 @@ import { url } from '../lib/url';
 import cyberpunk from '../assets/images/cyberpunk-2077.jpg';
 import flStudio from '../assets/images/fl-studio.jpg';
 import runningShoe from '../assets/images/running-shoe.png';
+import bike from '../assets/images/bike.png';
 
 const tags = [
   { key: 'game', label: 'Gaming' },
@@ -73,7 +74,7 @@ const tags = [
         <article class="tile t-act" data-key="active" data-reveal style={`--delay:${i * 0.06}s`}>
           <span class="act-icon" aria-hidden="true">
             {a.icon === 'bike' && (
-              <svg viewBox="0 0 24 24"><circle cx="5.5" cy="16.5" r="3.5" /><circle cx="18.5" cy="16.5" r="3.5" /><path d="M5.5 16.5 9 9.5h6.5l3 7M9 9.5l3.5 7h-7M15.5 9.5l-1.2-3H12" /></svg>
+              <span class="act-img" style={`--icon:url(${bike.src})`}></span>
             )}
             {a.icon === 'run' && (
               <span class="act-img" style={`--icon:url(${runningShoe.src})`}></span>
