@@ -19,7 +19,6 @@ const certImages = { ixdf };
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
-const [featured, ...rest] = projects;
 ---
 <BaseLayout>
   <!-- Hero -->
@@ -53,11 +52,8 @@ const [featured, ...rest] = projects;
       </div>
     </div>
 
-    <div class="work">
-      {featured && <ProjectCard project={featured} featured index={0} />}
-      <div class="work-grid">
-        {rest.map((p, i) => <ProjectCard project={p} index={i + 1} />)}
-      </div>
+    <div class="work-grid">
+      {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
     </div>
   </section>
 
@@ -251,11 +247,6 @@ const [featured, ...rest] = projects;
   }
 
   /* Work ----------------------------------------------------------- */
-  .work {
-    display: grid;
-    gap: clamp(3rem, 2rem + 3vw, 5rem);
-  }
-
   .work-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
