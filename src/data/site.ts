@@ -30,9 +30,9 @@ export const nav = [
 
 export const about = {
   intro:
-    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background. I graduated from Indiana University Bloomington in May 2026 with a B.S. in Informatics, a cognate in Business, and minors in web design and human-centered computing. I design and build clear, purposeful web and product experiences, from discovery research to final product.',
+    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background in a Muslim household. I graduated from Indiana University Bloomington in May 2026 with a B.S. in Informatics, a cognate in Business, and minors in web design and human-centered computing.',
   roots:
-    'My creativity and passion for technology started early. I started gaming on a Game Boy, PS2, Wii, and Xbox 360 when I was younger. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my Canon (yes, that’s a picture I took), and making music on FL Studio. Over time that evolved into designing websites and gaining an interest in product design.',
+    'My creativity and passion for technology started early. When I was about 7 years old, I first started gaming on a Game Boy then later on started playing on the PS2, Wii, and Xbox 360. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my Canon EOS Rebel T7, and making music on FL Studio. Over time that evolved into designing websites and gaining an interest in a product design career.',
   education: {
     school: 'Indiana University Bloomington',
     degree: 'B.S. in Informatics',
