@@ -31,9 +31,15 @@ export const nav = [
 export const about = {
   // The About Me story, one string per paragraph.
   story: [
-    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background in a Muslim household. My creativity and passion for technology started early.',
-    'When I was about 7 years old, I first started gaming on a Game Boy then later on started playing on the PS2, Wii, and Xbox 360. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my camera, and making music on FL Studio.',
-    'Over time that evolved into designing websites and gaining an interest in a product design career.',
+    'I grew up in Bloomington, Indiana, in a Nigerian, Muslim household, and I’ve always been someone who makes things: building my own gaming PC, editing videos for YouTube, and taking photos. In a high school web development class, everything clicked. I loved the logic of writing code and the creativity of watching it turn into something visual.',
+    'At Indiana University I went deeper, learning UX research, user testing, wireframing and prototyping in Figma, plus visual design fundamentals like Gestalt principles and color theory. The project that shaped me most started as a class assignment. Turkuaz Cafe, a local restaurant, didn’t have a website, so I designed one for my final project, then offered to build them a real one on Square. Working with a real client taught me to design around constraints, pick up new tools quickly, and think through every step of a customer’s journey.',
+    'Today I’m a Product Designer at Elanco, balancing user needs with business goals alongside engineers and product managers. I keep my work simple and intentional. I’ve been lost and frustrated in products before, and I want people to feel calm using mine.',
+  ],
+  // "How I design" card in About Me.
+  principles: [
+    { title: 'Simple & intentional', body: 'Clear, focused screens that never overload the people using them.' },
+    { title: 'Empathy first', body: 'User research and honest feedback shape every decision.' },
+    { title: 'Learn by iterating', body: 'Prototype, test, learn from mistakes, and keep refining.' },
   ],
   education: {
     school: 'Indiana University Bloomington',

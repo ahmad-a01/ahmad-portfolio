@@ -91,6 +91,18 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
           <p class="muted">{site.current.company}<br />Since {site.current.since}</p>
         </article>
 
+        <article class="tile tile-how" data-reveal>
+          <p class="tile-label">How I design</p>
+          <ul class="principles">
+            {about.principles.map((pr) => (
+              <li>
+                <p class="principle-title">{pr.title}</p>
+                <p class="muted small">{pr.body}</p>
+              </li>
+            ))}
+          </ul>
+        </article>
+
         <article class="tile tile-edu" data-reveal>
           <p class="tile-label">Education</p>
           <p class="edu-degree">{about.education.degree}</p>
@@ -349,13 +361,35 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     font-size: var(--step--1);
   }
 
-  /* Story on the left (two rows tall); portrait and Now stacked on the
-     right; Education and the Canon photo underneath. */
+  /* Left column: story, How I design, Education.
+     Right column: portrait, Now, Canon photo. */
   .tile-story { grid-column: 1 / span 4; grid-row: 1 / span 2; display: flex; flex-direction: column; justify-content: center; }
   .tile-portrait { grid-column: 5 / span 2; grid-row: 1; padding: 0; position: relative; min-height: 13rem; }
   .tile-now { grid-column: 5 / span 2; grid-row: 2; background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
-  .tile-edu { grid-column: 1 / span 4; grid-row: 3; }
-  .tile-photo { grid-column: 5 / span 2; grid-row: 3; padding: 0; position: relative; min-height: 13rem; }
+  .tile-how { grid-column: 1 / span 4; grid-row: 3; }
+  .tile-edu { grid-column: 1 / span 4; grid-row: 4; }
+  .tile-photo { grid-column: 5 / span 2; grid-row: 3 / span 2; padding: 0; position: relative; min-height: 13rem; }
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem 1.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .principles li {
+    padding-top: 0.9rem;
+    border-top: 2px solid var(--accent);
+  }
+
+  .principle-title {
+    margin-bottom: 0.3rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1rem + 0.35vw, 1.25rem);
+    line-height: 1.2;
+  }
 
   .tile-story p {
     font-size: var(--step-0);
@@ -542,6 +576,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 
     .tile-story,
     .tile-portrait,
+    .tile-how,
     .tile-edu {
       grid-column: 1 / -1;
       grid-row: auto;
@@ -587,6 +622,10 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     .tile-now,
     .tile-photo {
       grid-column: 1 / -1;
+    }
+
+    .principles {
+      grid-template-columns: minmax(0, 1fr);
     }
 
   }
