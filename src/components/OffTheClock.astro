@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import { offTheClock as otc } from '../data/site';
 import { url } from '../lib/url';
 import cyberpunk from '../assets/images/cyberpunk-2077.jpg';
-import flStudio from '../assets/images/fl-studio.jpg';
 import runningShoe from '../assets/images/running-shoe.png';
 import bike from '../assets/images/bike.png';
 
@@ -24,7 +23,7 @@ const tags = [
   </div>
 
   <div class="bento" data-otc-bento>
-    <!-- Gaming: cover art (left half) + PC build (right half) -->
+    <!-- Gaming (left) + beat player (right) -->
     <article class="tile t-game" data-key="game" data-reveal>
       <Image src={cyberpunk} alt={`${otc.game.title} cover art`} widths={[480, 720, 1000]} sizes="(min-width: 900px) 600px, 100vw" />
       <div class="game-overlay">
@@ -37,44 +36,29 @@ const tags = [
       </div>
     </article>
 
-    <article class="tile t-pc" data-key="pc" data-group="game" data-reveal style="--delay:.06s">
-      <span class="label">My PC build</span>
-      <dl class="specs">
-        {otc.pc.map((p) => (
-          <div>
-            <dt>{p.part}</dt>
-            <dd>{p.name}</dd>
-          </div>
-        ))}
-      </dl>
-    </article>
-
-    <!-- Beats: player card (left) + FL Studio image (right) -->
-    <article class="tile t-beats" data-key="beats" data-reveal>
+    <article class="tile t-beats" data-key="beats" data-reveal style="--delay:.06s">
       <canvas data-viz aria-hidden="true"></canvas>
-      <span class="label beat-label">My favorite beat</span>
+      <div class="beat-top">
+        <span class="label">My favorite beat</span>
+        <div class="daw">
+          <span class="label">Where I make music</span>
+          <h3>
+            <a class="game-link" href={otc.daw.href} target="_blank" rel="noopener">
+              {otc.daw.title} <span aria-hidden="true">↗</span>
+            </a>
+          </h3>
+        </div>
+      </div>
       <span class="visually-hidden" data-time aria-live="off">0:00 / {otc.beat.duration}</span>
       <div class="controls">
-        <button class="play" type="button" data-play aria-label={`Play ${otc.beat.title}`}>
+        <button class="play" type="button" data-play aria-label={`Play ${otc.beat.spoken}`}>
           <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
           <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
         </button>
-        <input class="seek" type="range" min="0" max="1000" value="0" step="1" data-seek aria-label={`Seek within ${otc.beat.title}`} />
+        <input class="seek" type="range" min="0" max="1000" value="0" step="1" data-seek aria-label={`Seek within ${otc.beat.spoken}`} />
       </div>
       <audio data-audio src={url(otc.beat.src)} preload="metadata"></audio>
     </article>
-
-    <figure class="tile t-fl" data-key="fl" data-group="beats" data-reveal style="--delay:.06s">
-      <Image src={flStudio} alt="FL Studio logo" widths={[480, 720, 1000]} sizes="(min-width: 760px) 600px, 100vw" />
-      <figcaption class="media-overlay">
-        <span class="label">Where I make music</span>
-        <h3>
-          <a class="game-link" href={otc.daw.href} target="_blank" rel="noopener">
-            {otc.daw.title} <span aria-hidden="true">↗</span>
-          </a>
-        </h3>
-      </figcaption>
-    </figure>
 
     <!-- Staying active -->
     <div class="activities">
@@ -172,10 +156,10 @@ const tags = [
       const slot = w / N;
       const bw = Math.max(2 * d, slot * 0.55);
       // Bars sit above the play controls, which overlay the bottom of the card
-      const mid = h * 0.47;
+      const mid = h * 0.56;
       const progress = audio.duration ? audio.currentTime / audio.duration : 0;
       for (let i = 0; i < N; i++) {
-        const bh = Math.max(3 * d, levels[i] * h * 0.48);
+        const bh = Math.max(3 * d, levels[i] * h * 0.38);
         g.fillStyle = (i + 0.5) / N <= progress ? '#9fc0f0' : 'rgba(160, 172, 190, 0.32)';
         bar(i * slot + (slot - bw) / 2, mid - bh / 2, bw, bh, Math.min(bw / 2, 2 * d));
       }
@@ -426,8 +410,7 @@ const tags = [
     transform: scale(1.04);
   }
 
-  .game-overlay,
-  .media-overlay {
+  .game-overlay {
     position: relative;
     display: grid;
     gap: 0.2rem;
@@ -437,12 +420,12 @@ const tags = [
   }
 
   .game-overlay .label,
-  .media-overlay .label {
+  .beat-top .label {
     color: rgb(246 243 236 / 0.75);
   }
 
   .game-overlay h3,
-  .media-overlay h3 {
+  .daw h3 {
     font-size: var(--step-2);
     color: #fff;
   }
@@ -461,43 +444,6 @@ const tags = [
   .game-link span {
     font-size: 0.65em;
     opacity: 0.75;
-  }
-
-  .t-pc {
-    gap: 0.5rem;
-    align-content: center;
-  }
-
-  .specs {
-    display: grid;
-    margin: 0;
-  }
-
-  .specs div {
-    display: grid;
-    grid-template-columns: 4.5rem minmax(0, 1fr);
-    gap: 0.6rem;
-    align-items: baseline;
-    min-width: 0;
-    padding: 0.6rem 0;
-    border-top: 1px dashed var(--line);
-  }
-
-  .specs dt {
-    font: 600 0.7rem/1.4 ui-monospace, 'SF Mono', Menlo, monospace;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .specs dd {
-    margin: 0;
-    font-weight: 600;
-    transition: color 0.2s;
-  }
-
-  .specs div:hover dd {
-    color: var(--accent);
   }
 
   /* Beats ---------------------------------------------------------- */
@@ -523,17 +469,31 @@ const tags = [
     content: '';
     position: absolute;
     inset: 0 0 auto;
-    height: 5rem;
+    height: 7.5rem;
     background: linear-gradient(to bottom, rgb(10 12 16 / 0.75), transparent);
     pointer-events: none;
   }
 
-  .beat-label {
+  /* "My favorite beat" (left) and the FL Studio link (right) */
+  .beat-top {
     position: absolute;
-    top: clamp(1rem, 0.8rem + 0.8vw, 1.4rem);
-    left: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+    inset: clamp(1rem, 0.8rem + 0.8vw, 1.4rem) clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem) auto;
     z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .beat-top .label {
     color: rgb(246 243 236 / 0.85);
+  }
+
+  .daw {
+    display: grid;
+    gap: 0.2rem;
+    justify-items: end;
+    text-align: right;
   }
 
   .controls {
@@ -583,30 +543,6 @@ const tags = [
     margin: 0;
     accent-color: #9fc0f0;
     cursor: pointer;
-  }
-
-  .t-fl {
-    position: relative;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    min-height: 18rem;
-    align-content: end;
-    background: #34495a;
-    border-color: transparent;
-  }
-
-  .t-fl :global(img) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 1s var(--ease);
-  }
-
-  .t-fl:hover :global(img) {
-    transform: scale(1.04);
   }
 
   /* Staying active ---------------------------------------------------- */
@@ -672,14 +608,9 @@ const tags = [
   }
 
   @media (max-width: 760px) {
-    .t-fl {
-      min-height: 0;
-      aspect-ratio: 16 / 9;
-    }
-
     .t-beats {
       min-height: 0;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 16 / 11;
     }
   }
 

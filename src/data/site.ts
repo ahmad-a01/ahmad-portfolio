@@ -43,16 +43,9 @@ export const about = {
 
 // "Off the clock" section on the home page.
 export const offTheClock = {
-  beat: { title: 'flow', src: '/audio/flow.mp3', duration: '2:05' },
+  beat: { title: 'cl1ck', spoken: 'click', src: '/audio/cl1ck.mp3', duration: '1:45' },
   game: { title: 'Cyberpunk 2077', href: 'https://www.cyberpunk.net/us/en/' },
   daw: { title: 'FL Studio', href: 'https://www.image-line.com/fl-studio/' },
-  pc: [
-    { part: 'CPU', name: 'Ryzen 5 2600' },
-    { part: 'GPU', name: 'Radeon RX 570' },
-    { part: 'RAM', name: '32 GB DDR4' },
-    { part: 'Storage', name: '500 GB SSD + 1.5 TB HDD' },
-    { part: 'Case', name: 'Cougar' },
-  ],
   activities: [
     { label: 'Biking', icon: 'bike', detail: 'Giant Escape 3' },
     { label: 'Running', icon: 'run', detail: 'Brooks Revel 8' },
