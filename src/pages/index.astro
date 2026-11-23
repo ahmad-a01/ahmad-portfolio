@@ -28,6 +28,14 @@ const [featured, ...rest] = projects;
       <h1 id="hero-title" data-reveal>
         A product designer, creative thinker, and builder based in <em class="serif-italic">Indiana</em>.
       </h1>
+      <ul class="tools" aria-label="Tools I use">
+        {tools.map((t, i) => (
+          <li class="tool" data-reveal style={`--delay:${0.1 + i * 0.04}s`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.path} /></svg>
+            <span>{t.name}</span>
+          </li>
+        ))}
+      </ul>
     </div>
 
     <div class="hero-visual" data-reveal style="--delay:.1s">
@@ -35,24 +43,6 @@ const [featured, ...rest] = projects;
         <Image src={avatar} alt="Portrait of Ahmad Abdullahi" widths={[320, 590]} sizes="(min-width: 900px) 360px, 62vw" loading="eager" fetchpriority="high" />
       </div>
     </div>
-  </section>
-
-  <!-- Tools -->
-  <section class="section container tools-section" id="tools" aria-labelledby="tools-title">
-    <div class="section-head">
-      <div>
-        <h2 id="tools-title">My Tools</h2>
-      </div>
-    </div>
-
-    <ul class="tools">
-      {tools.map((t, i) => (
-        <li class="tool" data-reveal style={`--delay:${i * 0.04}s`}>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.path} /></svg>
-          <span>{t.name}</span>
-        </li>
-      ))}
-    </ul>
   </section>
 
   <!-- Work -->
@@ -218,40 +208,37 @@ const [featured, ...rest] = projects;
     object-position: 50% 40%;
   }
 
-  /* Tools ---------------------------------------------------------- */
+  /* Tools (under the hero headline) ------------------------------- */
   .tools {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: clamp(0.6rem, 0.4rem + 0.6vw, 1rem);
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem) 0 0;
     padding: 0;
     list-style: none;
   }
 
   .tool {
-    display: grid;
-    justify-items: center;
-    align-content: center;
-    gap: 0.85rem;
-    padding: 1.6rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1rem 0.55rem 0.8rem;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: 999px;
     background: var(--surface);
-    text-align: center;
     font-size: var(--step--1);
     font-weight: 600;
     line-height: 1.2;
-    transition: border-color 0.25s, transform 0.4s var(--ease);
+    transition: border-color 0.25s;
   }
 
   .tool:hover {
     border-color: var(--accent);
-    transform: translateY(-2px);
   }
 
   .tool svg {
-    width: 2rem;
-    height: 2rem;
+    width: 1.15rem;
+    height: 1.15rem;
     fill: var(--ink);
   }
 
@@ -482,10 +469,6 @@ const [featured, ...rest] = projects;
       grid-template-columns: minmax(0, 1fr);
     }
 
-    .tools {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
     .cert-img {
       border-right: 0;
       border-bottom: 1px solid var(--line);
@@ -529,24 +512,5 @@ const [featured, ...rest] = projects;
       grid-column: 1 / -1;
     }
 
-    /* Phones: tools become a wrapping row of pills */
-    .tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .tool {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.6rem 1rem 0.6rem 0.8rem;
-      border-radius: 999px;
-    }
-
-    .tool svg {
-      width: 1.15rem;
-      height: 1.15rem;
-    }
   }
 </style>
