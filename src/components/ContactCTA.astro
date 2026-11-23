@@ -1,18 +1,19 @@
 ---
 import Icon from './Icon.astro';
-import { site } from '../data/site';
+import { site, socials } from '../data/site';
+
+const linkedin = socials.find((s) => s.icon === 'linkedin')!;
 ---
 <section class="contact container" id="contact" aria-labelledby="contact-title">
   <div class="card" data-reveal>
-    <p class="eyebrow">Contact</p>
     <h2 id="contact-title">Interested in <em class="serif-italic">connecting?</em></h2>
-    <p class="lede">Let’s talk projects, collaborations, or anything design. I’m always happy to chat.</p>
+    <p class="lede">Feel free to reach out to talk about projects, collaborations, design, or anything tech related. I’m always open to chat!</p>
     <div class="row">
-      <a class="btn" href={site.calendly} target="_blank" rel="noopener">
-        <Icon name="calendar" /> Book a call
+      <a class="btn" href={linkedin.href} target="_blank" rel="noopener">
+        <Icon name="linkedin" /> Message Me
       </a>
       <a class="btn btn-ghost" href={`mailto:${site.email}`}>
-        <Icon name="mail" /> {site.email}
+        <Icon name="mail" /> Email Me
       </a>
     </div>
   </div>
@@ -43,10 +44,6 @@ import { site } from '../data/site';
     background: radial-gradient(circle, color-mix(in oklab, var(--accent) 55%, transparent), transparent 65%);
     filter: blur(20px);
     z-index: -1;
-  }
-
-  .eyebrow {
-    color: color-mix(in oklab, var(--on-ink) 60%, transparent);
   }
 
   h2 {
