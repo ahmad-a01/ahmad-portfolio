@@ -6,7 +6,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import OffTheClock from '../components/OffTheClock.astro';
 import Icon from '../components/Icon.astro';
-import { about, certificates, experience, site } from '../data/site';
+import { about, certificates, experience, site, socials } from '../data/site';
 import { tools } from '../data/tools';
 
 import avatar from '../assets/images/avatar.jpg';
@@ -15,6 +15,7 @@ import landscape from '../assets/images/landscape.jpg';
 import ixdf from '../assets/certificates/ixdf.jpg';
 
 const certImages = { ixdf };
+const linkedin = socials.find((s) => s.icon === 'linkedin')!;
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
@@ -28,14 +29,10 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
         Designer, creative thinker, and builder based in <em class="serif-italic">Indiana</em>.
       </h1>
       <p class="hero-sub" data-reveal style="--delay:.05s">Improving digital product experiences that feel right for the people who use them.</p>
-      <ul class="tools" aria-label="Tools I use">
-        {tools.map((t, i) => (
-          <li class="tool" data-reveal style={`--delay:${0.1 + i * 0.04}s`}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.path} /></svg>
-            <span>{t.name}</span>
-          </li>
-        ))}
-      </ul>
+      <div class="hero-actions" data-reveal style="--delay:.1s">
+        <a class="btn" href={`mailto:${site.email}`}><Icon name="mail" /> Let’s Work</a>
+        <a class="btn btn-ghost" href={linkedin.href} target="_blank" rel="noopener"><Icon name="linkedin" /> Let’s Connect</a>
+      </div>
     </div>
 
     <div class="hero-visual" data-reveal style="--delay:.1s">
@@ -47,11 +44,20 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 
   <!-- Work -->
   <section class="section container" id="work" aria-labelledby="work-title">
-    <div class="section-head">
+    <div class="section-head work-head">
       <div>
         <h2 id="work-title">My Work</h2>
       </div>
     </div>
+
+    <ul class="tools" aria-label="Tools I use">
+      {tools.map((t, i) => (
+        <li class="tool" data-reveal style={`--delay:${i * 0.04}s`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.path} /></svg>
+          <span>{t.name}</span>
+        </li>
+      ))}
+    </ul>
 
     <div class="work-grid">
       {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
@@ -213,12 +219,23 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     object-position: 50% 40%;
   }
 
-  /* Tools (under the hero headline) ------------------------------- */
+  /* Hero buttons + tools under My Work ------------------------------ */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem);
+  }
+
+  .work-head {
+    margin-bottom: 1.25rem;
+  }
+
   .tools {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem) 0 0;
+    margin: 0 0 clamp(2rem, 1.5rem + 2vw, 3.5rem);
     padding: 0;
     list-style: none;
   }
