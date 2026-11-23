@@ -52,7 +52,11 @@ export const offTheClock = {
     { part: 'Storage', name: '500 GB SSD + 1.5 TB HDD' },
     { part: 'Case', name: 'Cougar' },
   ],
-  bike: { trail: 'Monon Trail', city: 'Indianapolis', stops: ['Downtown Indy', 'Broad Ripple', 'Carmel', 'Westfield'] },
+  activities: [
+    { label: 'Biking', icon: 'bike' },
+    { label: 'Running', icon: 'run' },
+    { label: 'Strength training', icon: 'gym' },
+  ],
 };
 
 export const experience = [
