@@ -6,7 +6,7 @@ export const site = {
   title: 'Ahmad Abdullahi — Product Designer',
   description:
     'Portfolio of Ahmad Abdullahi, a product designer in Indiana. UX/UI and web design case studies, experience, and the story behind my creative work.',
-  role: 'Product Designer',
+  role: 'Designer',
   location: 'Indiana, USA',
   email: 'atabdullahi.business@gmail.com',
   calendly: 'https://calendly.com/atabdullahi-business/30min',
@@ -24,15 +24,15 @@ export const socials = [
 export const nav = [
   { label: 'Work', href: '/#work' },
   { label: 'About', href: '/#about' },
-  { label: 'Experience', href: '/#experience' },
+  { label: 'Experiences', href: '/#experience' },
   { label: 'Contact', href: '/#contact' },
 ];
 
 export const about = {
   intro:
-    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background in a Muslim household. I graduated from Indiana University Bloomington in May 2026 with a B.S. in Informatics, a cognate in Business, and minors in web design and human-centered computing.',
+    'I was born and raised in Bloomington, Indiana with a Nigerian ethnic background in a Muslim household.',
   roots:
-    'My creativity and passion for technology started early. When I was about 7 years old, I first started gaming on a Game Boy then later on started playing on the PS2, Wii, and Xbox 360. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my Canon EOS Rebel T7, and making music on FL Studio. Over time that evolved into designing websites and gaining an interest in a product design career.',
+    'My creativity and passion for technology started early. When I was about 7 years old, I first started gaming on a Game Boy then later on started playing on the PS2, Wii, and Xbox 360. I then built my own gaming PC in high school, got into editing gaming videos for YouTube, short-form content for TikTok, taking photographs on my camera, and making music on FL Studio. Over time that evolved into designing websites and gaining an interest in a product design career.',
   education: {
     school: 'Indiana University Bloomington',
     degree: 'B.S. in Informatics',
