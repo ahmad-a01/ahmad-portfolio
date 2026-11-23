@@ -54,9 +54,9 @@ export const offTheClock = {
     { part: 'Case', name: 'Cougar' },
   ],
   activities: [
-    { label: 'Biking', icon: 'bike', detailLabel: 'My Bike', detail: 'Giant Escape 3' },
-    { label: 'Running', icon: 'run', detailLabel: 'My Running Shoes', detail: 'Brooks Revel 8' },
-    { label: 'Strength training', icon: 'gym', detailLabel: 'My Gym Split', detail: 'Arnold Split' },
+    { label: 'Biking', icon: 'bike', detail: 'Giant Escape 3' },
+    { label: 'Running', icon: 'run', detail: 'Brooks Revel 8' },
+    { label: 'Strength training', icon: 'gym', detail: 'Arnold Split' },
   ],
 };
 

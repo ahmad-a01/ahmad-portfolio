@@ -92,7 +92,7 @@ const tags = [
             )}
           </span>
           <h3>{a.label}</h3>
-          <p class="act-detail"><span>{a.detailLabel}:</span> {a.detail}</p>
+          <p class="act-detail">{a.detail}</p>
         </article>
       ))}
     </div>
@@ -658,10 +658,6 @@ const tags = [
     color: var(--muted);
   }
 
-  .act-detail span {
-    font-weight: 600;
-    color: var(--ink-soft);
-  }
 
   /* Responsive ---------------------------------------------------------- */
   @media (max-width: 760px) {
@@ -709,10 +705,6 @@ const tags = [
     .act-detail {
       margin-top: -0.2rem;
       font-size: 0.75rem;
-    }
-
-    .act-detail span {
-      display: block;
     }
   }
 </style>
