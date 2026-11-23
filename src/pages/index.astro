@@ -25,8 +25,9 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
   <section class="hero container" aria-labelledby="hero-title">
     <div class="hero-copy">
       <h1 id="hero-title" data-reveal>
-        Product designer, creative thinker, and builder based in <em class="serif-italic">Indiana</em>.
+        Designer, creative thinker, and builder based in <em class="serif-italic">Indiana</em>.
       </h1>
+      <p class="hero-sub" data-reveal style="--delay:.05s">Improving digital product experiences that feel right for owners.</p>
       <ul class="tools" aria-label="Tools I use">
         {tools.map((t, i) => (
           <li class="tool" data-reveal style={`--delay:${0.1 + i * 0.04}s`}>
@@ -177,6 +178,14 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     line-height: 1.12;
     letter-spacing: -0.03em;
     text-wrap: initial;
+  }
+
+  .hero-sub {
+    margin-top: 1.25rem;
+    max-width: 34ch;
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--ink-soft);
   }
 
   h1 em {
