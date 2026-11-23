@@ -1,6 +1,6 @@
-# ahmad-portfolio
+# Ahmad's Personal Portfolio
 
-The personal portfolio of Ahmad Abdullahi, a product designer. It showcases my work and gives people a place to learn about me and what it's like to work with me.
+This is the personal portfolio of Ahmad Abdullahi. It showcases my design work and gives people a place to learn more about me.
 
 Built with [Astro](https://astro.build), deployed to GitHub Pages.
 
