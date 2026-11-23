@@ -51,11 +51,11 @@ const tags = [
       </div>
       <span class="visually-hidden" data-time aria-live="off">0:00 / {otc.beat.duration}</span>
       <div class="controls">
-        <button class="play" type="button" data-play aria-label={`Play ${otc.beat.title}`}>
+        <button class="play" type="button" data-play aria-label={`Play ${otc.beat.spoken}`}>
           <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
           <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
         </button>
-        <input class="seek" type="range" min="0" max="1000" value="0" step="1" data-seek aria-label={`Seek within ${otc.beat.title}`} />
+        <input class="seek" type="range" min="0" max="1000" value="0" step="1" data-seek aria-label={`Seek within ${otc.beat.spoken}`} />
       </div>
       <audio data-audio src={url(otc.beat.src)} preload="metadata"></audio>
     </article>
