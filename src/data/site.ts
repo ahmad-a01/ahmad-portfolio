@@ -33,13 +33,7 @@ export const about = {
   story: [
     'I grew up in Bloomington, Indiana, in a Nigerian, Muslim household, and I’ve always been someone who makes things: building my own gaming PC, editing videos for YouTube, and taking photos. In a high school web development class, everything clicked. I loved the logic of writing code and the creativity of watching it turn into something visual.',
     'At Indiana University I went deeper, learning UX research, user testing, wireframing and prototyping in Figma, plus visual design fundamentals like Gestalt principles and color theory. The project that shaped me most started as a class assignment. Turkuaz Cafe, a local restaurant, didn’t have a website, so I designed one for my final project, then offered to build them a real one on Square. Working with a real client taught me to design around constraints, pick up new tools quickly, and think through every step of a customer’s journey.',
-    'Today I’m a Product Designer at Elanco, balancing user needs with business goals alongside engineers and product managers. I keep my work simple and intentional. I’ve been lost and frustrated in products before, and I want people to feel calm using mine.',
-  ],
-  // "How I design" card in About Me.
-  principles: [
-    { title: 'Simple & intentional', body: 'Clear, focused screens that never overload the people using them.' },
-    { title: 'Empathy first', body: 'User research and honest feedback shape every decision.' },
-    { title: 'Learn by iterating', body: 'Prototype, test, learn from mistakes, and keep refining.' },
+    'I keep my work simple and intentional. I’ve been lost and frustrated in products before, and I want people to feel calm using mine. I lead with empathy, letting user research and honest feedback shape every decision, and I learn by iterating: prototyping, testing, learning from my mistakes, and refining until it feels right.',
   ],
   education: {
     school: 'Indiana University Bloomington',
