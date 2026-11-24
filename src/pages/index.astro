@@ -12,6 +12,7 @@ import { tools } from '../data/tools';
 import avatar from '../assets/images/avatar.jpg';
 import portrait from '../assets/images/portrait.jpg';
 import landscape from '../assets/images/landscape.jpg';
+import coastline from '../assets/images/coastline.jpg';
 import ixdf from '../assets/certificates/ixdf.jpg';
 
 const certImages = { ixdf };
@@ -77,12 +78,20 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
       </div>
 
       <div class="bento">
-        <article class="tile tile-story" data-reveal>
-          {about.story.map((para) => <p>{para}</p>)}
+        <article class="tile tile-story story-a" data-reveal>
+          {about.story.slice(0, 2).map((para) => <p>{para}</p>)}
         </article>
 
         <figure class="tile tile-portrait" data-reveal style="--delay:.06s">
           <Image src={portrait} alt="Ahmad in a maroon sweater at an overlook above a lake, city and low clouds" widths={[500, 800, 1200, 1600]} sizes="(min-width: 900px) 600px, 100vw" />
+        </figure>
+
+        <article class="tile tile-story story-b" data-reveal>
+          {about.story.slice(2).map((para) => <p>{para}</p>)}
+        </article>
+
+        <figure class="tile tile-coast" data-reveal style="--delay:.06s">
+          <Image src={coastline} alt="Ahmad sitting on a grassy clifftop, looking out over the sea" widths={[400, 700, 1000]} sizes="(min-width: 900px) 400px, 100vw" />
         </figure>
 
         <article class="tile tile-now" data-reveal style="--delay:.12s">
@@ -349,13 +358,26 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     font-size: var(--step--1);
   }
 
-  /* Left column: story, Education.
-     Right column: portrait, Now, Canon photo. */
-  .tile-story { grid-column: 1 / span 4; grid-row: 1 / span 2; display: flex; flex-direction: column; justify-content: center; }
+  /* Row 1: paragraphs 1–2 + overlook portrait.
+     Row 2: coastline photo + paragraph 3 (zigzag).
+     Row 3: Now, Education, Canon photo. */
+  .tile-story { display: flex; flex-direction: column; justify-content: center; }
+  .story-a { grid-column: 1 / span 4; grid-row: 1; }
   .tile-portrait { grid-column: 5 / span 2; grid-row: 1; padding: 0; position: relative; min-height: 13rem; }
-  .tile-now { grid-column: 5 / span 2; grid-row: 2; background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
-  .tile-edu { grid-column: 1 / span 4; grid-row: 3; }
+  .tile-coast { grid-column: 1 / span 2; grid-row: 2; padding: 0; position: relative; min-height: 20rem; }
+  .story-b { grid-column: 3 / span 4; grid-row: 2; }
+  .tile-now { grid-column: 1 / span 2; grid-row: 3; background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+  .tile-edu { grid-column: 3 / span 2; grid-row: 3; }
   .tile-photo { grid-column: 5 / span 2; grid-row: 3; padding: 0; position: relative; min-height: 13rem; }
+
+  .tile-coast :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 55%;
+  }
 
   .tile-story p {
     font-size: var(--step-0);
@@ -375,7 +397,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
   .now-role,
   .edu-degree {
     font-family: var(--font-display);
-    font-size: var(--step-2);
+    font-size: clamp(1.5rem, 1.2rem + 0.9vw, 2rem);
     line-height: 1.1;
     margin-bottom: 0.4rem;
   }
@@ -542,9 +564,15 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 
     .tile-story,
     .tile-portrait,
+    .tile-coast,
     .tile-edu {
       grid-column: 1 / -1;
       grid-row: auto;
+    }
+
+    .tile-coast {
+      min-height: 0;
+      aspect-ratio: 1;
     }
 
     .tile-now,
