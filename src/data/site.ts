@@ -10,7 +10,7 @@ export const site = {
   location: 'Indiana, USA',
   email: 'atabdullahi.business@gmail.com',
   calendly: 'https://calendly.com/atabdullahi-business/30min',
-  resume: 'https://drive.google.com/file/d/1fk7oHKFZc8pl6wLUDXm6wyUfohLLasOP/view?usp=sharing',
+  resume: 'https://drive.google.com/file/d/1QUk4oIxjYSsA89dUtwx9umwG2C31lVry/view?usp=sharing',
   current: { role: 'Product Designer', company: 'Elanco Animal Health', since: 'July 2026' },
 };
 
