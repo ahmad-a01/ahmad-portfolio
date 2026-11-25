@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { offTheClock as otc } from '../data/site';
 import { url } from '../lib/url';
-import gameCover from '../assets/images/ghost-of-tsushima.jpg';
+import { asset } from '../lib/asset';
 import runningShoe from '../assets/images/running-shoe.png';
 import bike from '../assets/images/bike.png';
 
@@ -25,7 +25,7 @@ const tags = [
   <div class="bento" data-otc-bento>
     <!-- Gaming (left) + beat player (right) -->
     <article class="tile t-game" data-key="game" data-reveal>
-      <Image src={gameCover} alt={`${otc.game.title} cover art`} widths={[480, 720, 1000]} sizes="(min-width: 900px) 600px, 100vw" />
+      <Image src={asset(otc.game.cover)} alt={`${otc.game.title} cover art`} widths={[480, 720, 1000]} sizes="(min-width: 900px) 600px, 100vw" />
       <div class="game-overlay">
         <span class="label">Currently playing</span>
         <h3>

@@ -14,6 +14,26 @@ export const site = {
   current: { role: 'Product Designer', company: 'Elanco Animal Health', since: 'July 2026' },
 };
 
+// Hero (the first thing visitors see).
+// The headline is split in three so one word can be shown in navy italics.
+export const hero = {
+  headlineStart: 'Designer, creative thinker, and builder based in ',
+  headlineEmphasis: 'Indiana',
+  headlineEnd: '.',
+  subheading: 'Improving digital product experiences that feel right for the people who use them.',
+  emailButton: 'Let’s Work',
+  linkedinButton: 'Let’s Connect',
+};
+
+// Dark "Interested in connecting?" card near the bottom of every page.
+export const contact = {
+  titleStart: 'Interested in ',
+  titleEmphasis: 'connecting?',
+  text: 'Feel free to reach out to talk about projects, collaborations, design, or anything tech related. I’m always open to chat!',
+  linkedinButton: 'Message Me',
+  emailButton: 'Email Me',
+};
+
 export const socials = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ahmadabdul/', icon: 'linkedin' },
   { label: 'Dribbble', href: 'https://dribbble.com/ahmada01', icon: 'dribbble' },
@@ -46,7 +66,11 @@ export const about = {
 // "Off the clock" section on the home page.
 export const offTheClock = {
   beat: { title: 'cl1ck', spoken: 'click', src: '/audio/cl1ck.mp3', duration: '1:45' },
-  game: { title: 'Ghost of Tsushima', href: 'https://store.steampowered.com/app/2215430/Ghost_of_Tsushima_DIRECTORS_CUT/' },
+  game: {
+    title: 'Ghost of Tsushima',
+    href: 'https://store.steampowered.com/app/2215430/Ghost_of_Tsushima_DIRECTORS_CUT/',
+    cover: 'images/ghost-of-tsushima.jpg', // file in src/assets
+  },
   daw: { title: 'FL Studio', href: 'https://www.image-line.com/fl-studio/' },
   activities: [
     { label: 'Biking', icon: 'bike', detail: 'Giant Escape 3' },
@@ -67,7 +91,7 @@ export const certificates = [
   {
     title: 'Human-Computer Interaction: The Foundations of UX Design',
     issuer: 'Interaction Design Foundation',
-    image: 'ixdf',
+    image: 'certificates/ixdf.jpg', // file in src/assets
     href: 'https://ixdf.org/members/ahmad-abdullahi/certificate/course/10a6c31b-b6c8-446d-8a5e-8414f93e1168',
   },
 ] as const;

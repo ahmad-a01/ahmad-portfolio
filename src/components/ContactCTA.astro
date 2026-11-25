@@ -1,19 +1,19 @@
 ---
 import Icon from './Icon.astro';
-import { site, socials } from '../data/site';
+import { contact, site, socials } from '../data/site';
 
 const linkedin = socials.find((s) => s.icon === 'linkedin')!;
 ---
 <section class="contact container" id="contact" aria-labelledby="contact-title">
   <div class="card" data-reveal>
-    <h2 id="contact-title">Interested in <em class="serif-italic">connecting?</em></h2>
-    <p class="lede">Feel free to reach out to talk about projects, collaborations, design, or anything tech related. I’m always open to chat!</p>
+    <h2 id="contact-title">{contact.titleStart}<em class="serif-italic">{contact.titleEmphasis}</em></h2>
+    <p class="lede">{contact.text}</p>
     <div class="row">
       <a class="btn" href={linkedin.href} target="_blank" rel="noopener">
-        <Icon name="linkedin" /> Message Me
+        <Icon name="linkedin" /> {contact.linkedinButton}
       </a>
       <a class="btn btn-ghost" href={`mailto:${site.email}`}>
-        <Icon name="mail" /> Email Me
+        <Icon name="mail" /> {contact.emailButton}
       </a>
     </div>
   </div>
