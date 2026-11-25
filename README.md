@@ -4,6 +4,8 @@ This is the personal portfolio of Ahmad Abdullahi, live at **[ahmadabdullahi.com
 
 The site is built with [Astro](https://astro.build) and hosted for free on GitHub Pages. Every time a change is merged into the `main` branch, the site rebuilds and goes live automatically, usually in about a minute.
 
+Curious how I designed and built it with AI? Read **[How I rebuilt my portfolio as a designer using AI](docs/how-i-built-my-portfolio.md)**.
+
 This README is my manual for updating the site myself. Everything below can be done on the **GitHub website**, so you don't need to install anything.
 
 ---
