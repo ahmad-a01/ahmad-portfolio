@@ -46,7 +46,7 @@ export const about = {
 // "Off the clock" section on the home page.
 export const offTheClock = {
   beat: { title: 'cl1ck', spoken: 'click', src: '/audio/cl1ck.mp3', duration: '1:45' },
-  game: { title: 'Cyberpunk 2077', href: 'https://www.cyberpunk.net/us/en/' },
+  game: { title: 'Ghost of Tsushima', href: 'https://store.steampowered.com/app/2215430/Ghost_of_Tsushima_DIRECTORS_CUT/' },
   daw: { title: 'FL Studio', href: 'https://www.image-line.com/fl-studio/' },
   activities: [
     { label: 'Biking', icon: 'bike', detail: 'Giant Escape 3' },
